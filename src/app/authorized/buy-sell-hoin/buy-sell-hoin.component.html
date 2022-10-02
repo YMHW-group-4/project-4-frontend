@@ -1,0 +1,5 @@
+<p *ngIf="buyHoin">Buy Hoin</p>
+<p *ngIf="!buyHoin">Sell Hoin</p>
+<input type="number" [(ngModel)]="amount">
+<button (click)="transferHoin()">Submit</button>
+
