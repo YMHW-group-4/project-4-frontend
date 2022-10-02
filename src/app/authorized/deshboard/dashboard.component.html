@@ -1,0 +1,6 @@
+<p>deshboard works!</p>
+<ul>
+	<li *ngFor="let wallet of wallets">
+		<a [routerLink]=" '/app/view-wallet/' + wallet.walletAddress">{{wallet.walletAddress}} - {{wallet.balance}}</a>
+	</li>
+</ul>

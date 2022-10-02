@@ -1,0 +1,10 @@
+<p>create-tikkie works!</p>
+<input type="number" [(ngModel)]="amount">
+<p>
+	{{tikkieBaseUrl}} ?wallet={{wallet}}&amount={{amount}}
+</p>
+<qrcode
+	qrdata="{{tikkieBaseUrl}} ?wallet={{wallet}}&amount={{amount}}"
+	[width]="256"
+	[errorCorrectionLevel]="'high'"
+></qrcode>
