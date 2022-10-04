@@ -36,3 +36,6 @@ jobs:
                           
       - name: Serve Angular
         run: npm run start &
+        
+      - name: Run Cypress
+        run: npx cypress run
