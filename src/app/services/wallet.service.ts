@@ -1,30 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Wallet, Wallets} from "../models/Wallet";
+import {TempBackendService} from "./temp-backend.service";
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class WalletService {
 
-	private tempWallets: WalletData[] = [
-		{walletAddress: 'TEMP-WALLET-ADDRESS-1', balance: 12},
-		{walletAddress: 'TEMP-WALLET-ADDRESS-2', balance: 18},
-		{walletAddress: 'TEMP-WALLET-ADDRESS-3', balance: 6},
-	]
-
-	getWallets(): Promise<Array<WalletData>> {
-		return new Promise<Array<WalletData>>((resolve, _) => resolve(this.tempWallets));
+	constructor(private tempBackend: TempBackendService) {
 	}
 
-	getWallet(walletAddress: string): Promise<WalletData | undefined> {
-		return new Promise<WalletData | undefined>((resolve, _) => {
-			resolve(this.tempWallets.find((wallet) => wallet.walletAddress === walletAddress))
-		});
+	getWallets(username: string): Promise<Wallets> {
+		return this.tempBackend.get('wallets', {username});
 	}
-}
 
-
-
-export interface WalletData {
-	walletAddress: string;
-	balance: number;
+	getWallet(walletAddress: string): Promise<Wallet> {
+		return this.tempBackend.get('wallet', {walletAddress});
+	}
 }

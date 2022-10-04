@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {WalletData, WalletService} from "../../services/wallet.service";
+import {WalletService} from "../../services/wallet.service";
+import {Wallet} from "../../models/Wallet";
 
 @Component({
 	selector: 'app-view-wallet',
@@ -9,7 +10,7 @@ import {WalletData, WalletService} from "../../services/wallet.service";
 })
 export class ViewWalletComponent {
 
-	public walletData: WalletData;
+	public wallet: Wallet;
 	public walletAddress: string;
 
 	constructor(private route: ActivatedRoute, private router: Router, private walletService: WalletService) {
@@ -21,7 +22,7 @@ export class ViewWalletComponent {
 
 		this.walletService.getWallet(this.walletAddress).then((walletData) => {
 			if (walletData != undefined) {
-				this.walletData = walletData;
+				this.wallet = walletData;
 			}
 		})
 	}
