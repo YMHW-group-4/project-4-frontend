@@ -7,6 +7,8 @@ import {CreateTikkieComponent} from "./authorized/create-tikkie/create-tikkie.co
 import {NavigationComponent} from "./authorized/navigation/navigation.component";
 import {BuySellHoinComponent} from "./authorized/buy-sell-hoin/buy-sell-hoin.component";
 import {ViewWalletComponent} from "./authorized/view-wallet/view-wallet.component";
+import {RegisterComponent} from "./unauthorized/register/register.component";
+import {LoginComponent} from "./unauthorized/login/login.component";
 
 const routes: Routes = [
 	{
@@ -19,6 +21,8 @@ const routes: Routes = [
 		]
 	},
 	{path: '', component: HomeComponent},
+	{path: 'login', component: LoginComponent},
+	{path: 'register', component: RegisterComponent},
 ];
 
 @NgModule({

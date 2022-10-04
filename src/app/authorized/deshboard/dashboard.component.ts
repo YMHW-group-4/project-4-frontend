@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {WalletData, WalletService} from "../../services/wallet.service";
+import {WalletService} from "../../services/wallet.service";
+import {Wallets} from "../../models/Wallet";
 
 @Component({
 	selector: 'app-deshboard',
@@ -8,10 +9,11 @@ import {WalletData, WalletService} from "../../services/wallet.service";
 })
 export class DashboardComponent {
 
-	public wallets: Array<WalletData>;
+	public wallets: Wallets;
 
 	constructor(private walletService: WalletService) {
-		this.walletService.getWallets().then((wallets) => {
+		const username: string = 'user1';
+		this.walletService.getWallets(username).then((wallets) => {
 			this.wallets = wallets
 		})
 	}

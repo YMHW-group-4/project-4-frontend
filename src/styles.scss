@@ -1,7 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+
 body, html {
 	padding: 0;
 	margin: 0;
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
+	background: #FFDFDF;
+	font-family: 'Roboto', sans-serif;
+}
+
+button, input {
+	border: solid 1px lightgray;
+	box-shadow: none;
+	border-radius: 3px;
+	padding: 0.3rem 0.5rem;
+	margin: 0.3rem 0.5rem;
 }
