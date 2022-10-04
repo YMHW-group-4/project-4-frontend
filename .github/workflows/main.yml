@@ -6,9 +6,6 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "development" branch
   push:
-    branches: [ "development" ]
-  pull_request:
-    branches: [ "development" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -36,9 +33,6 @@ jobs:
                   
       - name: Build Angular
         run: npm run build
-        
-      - name: Startup Angular
-        run: npm run start
-        
-      - name: Run Cypress
-        run: npx cypress run
+                          
+      - name: Serve Angular
+        run: npm run start &
