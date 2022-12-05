@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import "assets/css/login_register";
 
 body, html {
 	padding: 0;
@@ -6,7 +7,8 @@ body, html {
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
-	background: #FFDFDF;
+	//background: #FFDFDF;,
+	background: linear-gradient(to top, #EBA937 50%, #fcc86d 90%) no-repeat;
 	font-family: 'Roboto', sans-serif;
 }
 

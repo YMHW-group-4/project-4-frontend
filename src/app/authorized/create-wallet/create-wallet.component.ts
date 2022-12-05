@@ -9,4 +9,8 @@ export class CreateWalletComponent {
 
 	constructor() {
 	}
+
+	create_wallet():void{
+		console.log("create wallet");
+	}
 }

@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {DashboardComponent} from "./authorized/deshboard/dashboard.component";
 import {QRCodeModule} from "angularx-qrcode";
 import {CreateTikkieComponent} from "./authorized/create-tikkie/create-tikkie.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NavigationComponent} from './authorized/navigation/navigation.component';
 import {BuySellHoinComponent} from "./authorized/buy-sell-hoin/buy-sell-hoin.component";
 import {NgxAsyncTemplateModule} from "@klippa/ngx-async-template";
@@ -41,6 +41,7 @@ import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.co
 		NgxAsyncTemplateModule,
 		BrowserAnimationsModule, // required animations module
 		ToastrModule.forRoot(), // ToastrModule added
+		ReactiveFormsModule, // for login en registration
 	],
 	providers: [],
 	bootstrap: [AppComponent]

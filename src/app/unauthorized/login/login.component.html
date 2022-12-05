@@ -1,7 +1,51 @@
-<p>login works!</p>
-<!-- TODO -->
-<!-- 1# Add alt text for autocomplete -->
-<!-- 2# Set password type to password-->
-<input type="text" [(ngModel)]="username">
-<input type="text" [(ngModel)]="password">
-<button (click)="doLogin()">Login</button>
+<!--&lt;!&ndash; TODO &ndash;&gt;-->
+<!--&lt;!&ndash; 1# Add alt text for autocomplete &ndash;&gt;-->
+<!--&lt;!&ndash; 2# Set password type to password&ndash;&gt;-->
+<!--<input type="text" [(ngModel)]="username">-->
+<!--<input type="text" [(ngModel)]="password">-->
+<!--<button (click)="doLogin()">Login</button>-->
+
+<div class="outer">
+	<div class="container">
+		<div class="row">
+			<div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+				<div class="panel border bg-white">
+					<div class="panel-heading">
+						<h3 class="pt-3 font-weigth-bold">Login</h3>
+					</div>
+					<div class="panel-body p-3">
+						<form [formGroup]="loginForm">
+							<div class="form-group pt-3">
+								<div class="input-field" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'username')">
+									<span class="fa fa-user p-2"></span>
+					 				<input formControlName="username" type="text" placeholder="Username">
+								</div>
+							</div>
+							<small *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')" class="text-danger">*Username required</small>
+							<div class="form-group pt-3">
+								<div class="input-field" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">
+									<span class="fa fa-lock p-2"></span>
+									<input formControlName="password" [type]="type" placeholder="Password">
+									<span (click)="showPassword()" class="fa {{eyeIcon}}"></span>
+								</div>
+							</div>
+							<small *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')" class="text-danger">*Password required</small>
+							<div class="form-inline fr mt-4">
+								<a id="forgot_pw" class="font-weight-bold">Forgot Password</a>
+							</div>
+							<button (click)="onSubmit()" [disabled]="loginForm.invalid" type="submit" class="btn btn-primary btn-block mt-4 w-100">Login</button>
+							<div class="text-center pt-4 text-muted">New here? <a id="register" routerLink="/register">Register</a></div>
+						</form>
+					</div>
+					<div class="mx-3 my-2 py-2 bordert">
+						<div class="text-center py-3">
+							<a href="http://www.google.com" target="_blank" class="px-2"> <img src="https://play.google.com/store/apps/dev?id=5700313618786177705&hl=nl&gl=US" alt=""></a>
+							<a href="http://www.github.com" target="_blank" class="px-2"> <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Flogos&psig=AOvVaw1LvounLUxjEbLBp1i-cHyD&ust=1670321664310000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCKji8Z2f4vsCFQAAAAAdAAAAABAW" alt=""></a>
+							<a href="http://www.facebook.com" target="_blank" class="px-2"> <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fnl-nl.facebook.com%2F&psig=AOvVaw0hWZLSq_8tmZSGpcfWc_ag&ust=1670321691138000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCIC7kKyf4vsCFQAAAAAdAAAAABAD" alt=""></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

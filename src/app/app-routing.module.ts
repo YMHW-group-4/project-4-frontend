@@ -9,6 +9,7 @@ import {BuySellHoinComponent} from "./authorized/buy-sell-hoin/buy-sell-hoin.com
 import {ViewWalletComponent} from "./authorized/view-wallet/view-wallet.component";
 import {RegisterComponent} from "./unauthorized/register/register.component";
 import {LoginComponent} from "./unauthorized/login/login.component";
+import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.component";
 
 const routes: Routes = [
 	{
@@ -16,6 +17,7 @@ const routes: Routes = [
 			{path: '', component: DashboardComponent},
 			{path: 'tikkie', component: CreateTikkieComponent},
 			{path: 'view-wallet/:walletAddress', component: ViewWalletComponent},
+			{path: 'create-wallet', component: CreateWalletComponent},
 			{path: 'buy-hoin', component: BuySellHoinComponent, data: {buyHoin: true}},
 			{path: 'sell-hoin', component: BuySellHoinComponent, data: {buyHoin: false}},
 		]
