@@ -18,6 +18,7 @@ import {LoginComponent} from "./unauthorized/login/login.component";
 import {TransverComponent} from "./authorized/transver/transver.component";
 import {RegisterComponent} from "./unauthorized/register/register.component";
 import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.component";
+import { AccountComponent } from './authorized/account/account.component';
 
 @NgModule({
 	declarations: [
@@ -32,6 +33,7 @@ import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.co
 		TransverComponent,
 		RegisterComponent,
 		CreateWalletComponent,
+  AccountComponent,
 	],
 	imports: [
 		BrowserModule,

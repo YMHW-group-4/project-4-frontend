@@ -5,6 +5,7 @@ import {User} from "../../models/User";
 import {Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Validateformfields from "../../helpers/validateformfields";
+import {SupabaseService} from "../../services/supabase.service";
 
 @Component({
 	selector: 'app-login',
@@ -14,24 +15,35 @@ import Validateformfields from "../../helpers/validateformfields";
 export class LoginComponent {
 	public username: string;
 	public password: string;
+	public email: string;
 
 	type: string = "password"
 	isText: boolean = false
 	eyeIcon: string = "fa-eye-slash"
 	loginForm!: FormGroup
 
+	loading = false
+
+	signInForm = this.formBuilder.group({
+		email: '',
+	})
+
+
 	constructor(
 		private authService: AuthService,
 		private loginService: LoginService,
 		private router: Router,
-		private fb: FormBuilder
+		private fb: FormBuilder,
+		private readonly supabase: SupabaseService,
+		private readonly formBuilder: FormBuilder
 	) {
 	}
 
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
-			username: ['', Validators.required],
-			password: ['', Validators.required]
+			// username: ['', Validators.required],
+			// password: ['', Validators.required],
+			email: ['', Validators.required]
 		})
 	}
 
@@ -41,7 +53,7 @@ export class LoginComponent {
 			// TODO: Create checks.
 			console.log(user);
 			this.router.navigateByUrl('/app')
-		})
+		});
 	}
 
 	showPassword() {
@@ -50,14 +62,20 @@ export class LoginComponent {
 		this.isText ? this.type = "text" : this.type = "password"
 	}
 
-	onSubmit() {
-		if (this.loginForm.valid) {
-			//	send to db
-			console.log(this.loginForm.value)
-		} else {
-			console.log("form is not valid")
-			Validateformfields.validateFormFields(this.loginForm)
-			alert("Invalid login")
+	async onSubmit(): Promise<void> {
+		try {
+			this.loading = true
+			const email = this.signInForm.value.email as string
+			const { error } = await this.supabase.signIn(email)
+			if (error) throw error
+			alert('Check your email for the login link!')
+		} catch (error) {
+			if (error instanceof Error) {
+				alert(error.message)
+			}
+		} finally {
+			this.signInForm.reset()
+			this.loading = false
 		}
 	}
 
