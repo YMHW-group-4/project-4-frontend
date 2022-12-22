@@ -5,7 +5,7 @@ import {User} from "../../models/User";
 import {Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Validateformfields from "../../helpers/validateformfields";
-import {SupabaseService} from "../../services/supabase.service";
+import {IUser, SupabaseService} from "../../services/supabase.service";
 
 @Component({
 	selector: 'app-login',
@@ -20,39 +20,48 @@ export class LoginComponent {
 	type: string = "password"
 	isText: boolean = false
 	eyeIcon: string = "fa-eye-slash"
-	loginForm!: FormGroup
 
-	loading = false
+	loading: boolean;
+	user: IUser;
 
 	signInForm = this.formBuilder.group({
-		email: '',
+		email: ['', Validators.required],
+		password: ['', Validators.required],
 	})
 
 
 	constructor(
 		private authService: AuthService,
 		private loginService: LoginService,
-		private router: Router,
 		private fb: FormBuilder,
-		private readonly supabase: SupabaseService,
-		private readonly formBuilder: FormBuilder
+		private readonly formBuilder: FormBuilder,
+		private router: Router,
+		private supabaseService: SupabaseService
 	) {
+		this.loading = false;
+		this.user = {} as IUser;
 	}
 
-	ngOnInit(): void {
-		this.loginForm = this.fb.group({
-			// username: ['', Validators.required],
-			// password: ['', Validators.required],
-			email: ['', Validators.required]
-		})
-	}
+	// public doLogin() {
+	// 	this.loginService.login(this.username, this.password).then((user: User) => {
+	// 		// TODO: Auth flow.
+	// 		// TODO: Create checks.
+	// 		console.log(user);
+	// 		this.router.navigateByUrl('/app')
+	// 	});
+	// }
 
-	public doLogin() {
-		this.loginService.login(this.username, this.password).then((user: User) => {
-			// TODO: Auth flow.
-			// TODO: Create checks.
-			console.log(user);
-			this.router.navigateByUrl('/app')
+	public doLogin(email: string, password: string): void {
+		this.loading = true;
+		this.supabaseService.signIn(email, password)
+			.then((user) => {
+				console.log(user);
+				this.user = user;
+				this.router.navigateByUrl('app').catch((errer) => {
+					console.log(errer);
+				})
+			}).catch(() => {
+			this.loading = false;
 		});
 	}
 
@@ -62,20 +71,17 @@ export class LoginComponent {
 		this.isText ? this.type = "text" : this.type = "password"
 	}
 
-	async onSubmit(): Promise<void> {
-		try {
-			this.loading = true
-			const email = this.signInForm.value.email as string
-			const { error } = await this.supabase.signIn(email)
-			if (error) throw error
-			alert('Check your email for the login link!')
-		} catch (error) {
-			if (error instanceof Error) {
-				alert(error.message)
-			}
-		} finally {
-			this.signInForm.reset()
-			this.loading = false
+	onSubmit() {
+		if (this.signInForm.valid) {
+			//	send to db
+			console.log(this.signInForm.value)
+			const email = this.signInForm?.value?.email || '';
+			const password = this.signInForm?.value?.password || ''
+			this.doLogin(email, password);
+		} else {
+			console.log("form is not valid")
+			Validateformfields.validateFormFields(this.signInForm)
+			alert("Invalid login")
 		}
 	}
 

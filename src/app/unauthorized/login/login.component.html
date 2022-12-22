@@ -15,67 +15,35 @@
 					</div>
 					<div class="panel-body p-3">
 
-<!--						<form [formGroup]="loginForm">-->
-<!--							<div class="row justify-content-center">-->
-<!--								<div class="form-group pt-3">-->
-<!--									<div class="input-field"-->
-<!--										 [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')">-->
-<!--										<span class="fa fa-user p-2"></span>-->
-<!--										<input formControlName="username" type="text" placeholder="Username">-->
-<!--									</div>-->
-<!--								</div>-->
-<!--								<small-->
-<!--									*ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required', 'username')"-->
-<!--									class="text-danger">*Username required</small>-->
-<!--								<div class="form-group pt-3">-->
-<!--									<div class="input-field"-->
-<!--										 [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">-->
-<!--										<span class="fa fa-lock p-2"></span>-->
-<!--										<input formControlName="password" [type]="type" placeholder="Password">-->
-<!--										<span (click)="showPassword()" class="fa {{eyeIcon}}"></span>-->
-<!--									</div>-->
-<!--								</div>-->
-<!--								<small-->
-<!--									*ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')"-->
-<!--									class="text-danger">*Password required</small>-->
-<!--								<div class="form-inline fr mt-4">-->
-<!--									<a id="forgot_pw" class="font-weight-bold">Forgot Password</a>-->
-<!--								</div>-->
-<!--								<button (click)="onSubmit()" [disabled]="loginForm.invalid" type="submit"-->
-<!--										class="btn btn-primary btn-block mt-5 w-100">Login-->
-<!--								</button>-->
-<!--								<div class="text-center d-flex justify-content-center py-4 text-muted">New here? &nbsp;<a-->
-<!--									id="register" routerLink="/register">Register</a>-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</form>-->
-
-
-						<form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+						<form [formGroup]="signInForm">
 							<div class="row justify-content-center">
 								<div class="form-group pt-3">
 									<div class="input-field"
-										 [class.error]="loginForm.controls['email'].dirty && loginForm.hasError('required', 'email')">
-										<span class="fa fa-regular fa-envelope p-2"></span>
-										<input id="email"
-											   formControlName="email"
-											   class="inputField w-100"
-											   type="email"
-											   placeholder="Email">
+										 [class.error]="signInForm.controls['email'].dirty && signInForm.hasError('required', 'email')">
+										<span class="fa fa-user p-2"></span>
+										<input formControlName="email" type="text" placeholder="Email">
 									</div>
 								</div>
 								<small
-									*ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required', 'email')"
-									class="text-danger">*Email required</small>
-
-								<button
-									type="submit"
-									class="btn btn-primary btn-block mt-5 w-100"
-									[disabled]="loading"
-								>
-									{{ loading ? 'Loading' : 'Send magic link' }}
+									*ngIf="signInForm.controls['email'].dirty && signInForm.hasError('required', 'email')"
+									class="text-danger">*email required</small>
+								<div class="form-group pt-3">
+									<div class="input-field"
+										 [class.error]="signInForm.controls['password'].dirty && signInForm.hasError('required', 'password')">
+										<span class="fa fa-lock p-2"></span>
+										<input formControlName="password" [type]="type" placeholder="Password">
+										<span (click)="showPassword()" class="fa {{eyeIcon}}"></span>
+									</div>
+								</div>
+								<small
+									*ngIf="signInForm.controls['password'].dirty && signInForm.hasError('required', 'password')"
+									class="text-danger">*Password required</small>
+								<div class="form-inline fr mt-4">
+									<a routerLink="/reset" id="forgot_pw" class="font-weight-bold">Forgot Password</a>
+								</div>
+								<button (click)="onSubmit()" [disabled]="signInForm.invalid" type="submit"
+										class="btn btn-primary btn-block mt-5 w-100">{{ loading ? 'Loading...' : 'Login' }}
 								</button>
-
 								<div class="text-center d-flex justify-content-center py-4 text-muted">New here?
 									&nbsp;<a
 										id="register" routerLink="/register">Register</a>
@@ -83,6 +51,37 @@
 							</div>
 						</form>
 
+
+<!--						<form [formGroup]="signInForm" (ngSubmit)="onSubmit()">-->
+<!--							<div class="row justify-content-center">-->
+<!--								<div class="form-group pt-3">-->
+<!--									<div class="input-field"-->
+<!--										 [class.error]="signInForm.controls['email'].dirty && signInForm.hasError('required', 'email')">-->
+<!--										<span class="fa fa-regular fa-envelope p-2"></span>-->
+<!--										<input type="email" id="email" name="email" formControlName="email"-->
+<!--											   class="inputField w-100 form-control form-control-sm">-->
+<!--										<input type="password" id="password" name="password" formControlName="password"-->
+<!--											   class="inputField w-100 form-control form-control-sm">-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<small-->
+<!--									*ngIf="signInForm.controls['email'].dirty && signInForm.hasError('required', 'email')"-->
+<!--									class="text-danger">*Email required</small>-->
+
+<!--								<button-->
+<!--									type="submit"-->
+<!--									class="btn btn-primary btn-block mt-5 w-100"-->
+<!--									[disabled]="loading"-->
+<!--								>-->
+<!--									{{ loading ? 'Loading' : 'Send magic link' }}-->
+<!--								</button>-->
+
+<!--								<div class="text-center d-flex justify-content-center py-4 text-muted">New here?-->
+<!--									&nbsp;<a-->
+<!--										id="register" routerLink="/register">Register</a>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</form>-->
 
 
 						<div class="mx-3 my-2 py-2 bordert">

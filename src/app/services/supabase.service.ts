@@ -1,74 +1,81 @@
-import { Injectable } from '@angular/core'
-import {
-	AuthChangeEvent,
-	AuthSession,
-	createClient,
-	Session,
-	SupabaseClient,
-	User,
-} from '@supabase/supabase-js'
-import { environment } from 'src/environments/environment'
-// import { Database } from 'src/schema'
+import {Injectable} from '@angular/core';
+import {AuthChangeEvent, createClient, Session, SupabaseClient, User} from '@supabase/supabase-js';
 
-export interface Profile {
-	id?: string
-	username: string
-	website: string
-	avatar_url: string
+import {environment} from '../../environments/environment';
+
+export interface IUser {
+	email: string;
+	name: string;
+	website: string;
+	url: string;
 }
 
 @Injectable({
 	providedIn: 'root',
 })
 export class SupabaseService {
-	private supabase: SupabaseClient
-	_session: AuthSession | null = null
+
+	private supabaseClient: any;
 
 	constructor() {
-		this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey)
+		this.supabaseClient = createClient(environment.supabase.url, environment.supabase.key);
 	}
 
-	get session() {
-		this.supabase.auth.getSession().then(({ data }) => {
-			this._session = data.session
-		})
-		return this._session
+	public async getUser(): Promise<User | null> {
+		return (await this.getSession())?.user || null
 	}
 
-	profile(user: User) {
-		return this.supabase
-			.from('profiles')
-			.select(`username, website, avatar_url`)
-			.eq('id', user.id)
-			.single()
+	public async getSession(): Promise<Session | null> {
+		return (await this.supabaseClient?.auth?.getSession())?.data?.session;
 	}
 
-	authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
-		return this.supabase.auth.onAuthStateChange(callback)
+	public async getProfile(): Promise<any> {
+		const user = await this.getUser();
+
+		return this.supabaseClient.from('profiles')
+			.select('username, website, avatar_url')
+			.eq('id', user?.id)
+			.single();
 	}
 
-	signIn(email: string) {
-		return this.supabase.auth.signInWithOtp({ email })
+	public authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void): any {
+		return this.supabaseClient.auth.onAuthStateChange(callback);
 	}
 
-	signOut() {
-		return this.supabase.auth.signOut()
+	public signIn(email: string, password: string): Promise<any> {
+		return this.supabaseClient.auth.signInWithPassword({email, password});
 	}
 
-	updateProfile(profile: Profile) {
+	public register(userData: any): Promise<any> {
+		return this.supabaseClient.auth.signUp(
+			{
+				email: userData.email, password: userData.password, options: null
+			}
+		);
+	}
+
+	public resetPassword(userData: any): Promise<any> {
+		console.log(userData)
+		return this.supabaseClient.auth.resetPasswordForEmail((userData.email), (userData.url, ''));
+	}
+
+	public signOut(): Promise<any> {
+		return this.supabaseClient.auth.signOut();
+	}
+
+	public async updateProfile(userUpdate: IUser): Promise<any> {
+		const user = await this.getUser();
+
 		const update = {
-			...profile,
+			username: userUpdate.name,
+			website: userUpdate.website,
+			id: user?.id,
 			updated_at: new Date(),
-		}
+		};
 
-		return this.supabase.from('profiles').upsert(update)
+		return this.supabaseClient.from('profiles').upsert(update, {
+			returning: 'minimal', // Do not return the value after inserting
+		});
 	}
 
-	downLoadImage(path: string) {
-		return this.supabase.storage.from('avatars').download(path)
-	}
-
-	uploadAvatar(filePath: string, file: File) {
-		return this.supabase.storage.from('avatars').upload(filePath, file)
-	}
 }

@@ -10,38 +10,38 @@
 						<form [formGroup]="registerForm">
 							<div class="row justify-content-center">
 
-								<div class="form-group pt-3">
-									<div class="input-field"
-										 [class.error]="registerForm.controls['firstname'].dirty && registerForm.hasError('required', 'firstname')">
-										<span class="fa fa-user p-2"></span>
-										<input formControlName="firstname" type="text" placeholder="First Name">
-									</div>
-								</div>
-								<small
-									*ngIf="registerForm.controls['firstname'].dirty && registerForm.hasError('required', 'firstname')"
-									class="text-danger">*First name required</small>
+<!--								<div class="form-group pt-3">-->
+<!--									<div class="input-field"-->
+<!--										 [class.error]="registerForm.controls['firstname'].dirty && registerForm.hasError('required', 'firstname')">-->
+<!--										<span class="fa fa-user p-2"></span>-->
+<!--										<input formControlName="firstname" type="text" placeholder="First Name">-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<small-->
+<!--									*ngIf="registerForm.controls['firstname'].dirty && registerForm.hasError('required', 'firstname')"-->
+<!--									class="text-danger">*First name required</small>-->
 
-								<div class="form-group pt-3">
-									<div class="input-field"
-										 [class.error]="registerForm.controls['lastname'].dirty && registerForm.hasError('required', 'lastname')">
-										<span class="fa fa-user p-2"></span>
-										<input formControlName="lastname" type="text" placeholder="Last Name">
-									</div>
-								</div>
-								<small
-									*ngIf="registerForm.controls['lastname'].dirty && registerForm.hasError('required', 'lastname')"
-									class="text-danger">*Last name required</small>
+<!--								<div class="form-group pt-3">-->
+<!--									<div class="input-field"-->
+<!--										 [class.error]="registerForm.controls['lastname'].dirty && registerForm.hasError('required', 'lastname')">-->
+<!--										<span class="fa fa-user p-2"></span>-->
+<!--										<input formControlName="lastname" type="text" placeholder="Last Name">-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<small-->
+<!--									*ngIf="registerForm.controls['lastname'].dirty && registerForm.hasError('required', 'lastname')"-->
+<!--									class="text-danger">*Last name required</small>-->
 
-								<div class="form-group pt-3">
-									<div class="input-field"
-										 [class.error]="registerForm.controls['username'].dirty && registerForm.hasError('required', 'username')">
-										<span class="fa fa-user p-2"></span>
-										<input formControlName="username" type="text" placeholder="Username">
-									</div>
-								</div>
-								<small
-									*ngIf="registerForm.controls['username'].dirty && registerForm.hasError('required', 'username')"
-									class="text-danger">*Username required</small>
+<!--								<div class="form-group pt-3">-->
+<!--									<div class="input-field"-->
+<!--										 [class.error]="registerForm.controls['username'].dirty && registerForm.hasError('required', 'username')">-->
+<!--										<span class="fa fa-user p-2"></span>-->
+<!--										<input formControlName="username" type="text" placeholder="Username">-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<small-->
+<!--									*ngIf="registerForm.controls['username'].dirty && registerForm.hasError('required', 'username')"-->
+<!--									class="text-danger">*Username required</small>-->
 
 								<div class="form-group pt-3">
 									<div class="input-field"
@@ -56,9 +56,10 @@
 
 								<div class="form-group pt-3">
 									<div class="input-field"
-										 [class.error]="registerForm.controls['password'].dirty && registerForm.hasError('required', 'password')">
+										 [class.error]="(registerForm.controls['password'].dirty && registerForm.hasError('required', 'password') ||
+										 registerForm.hasError('minlength', 'password'))">
 										<span class="fa fa-lock p-2"></span>
-										<input formControlName="password" type="password" [type]="type"
+										<input formControlName="password" name="password" [type]="type"
 											   placeholder="Password">
 										<span (click)="showPassword()" class="fa {{eyeIcon}}"></span>
 									</div>
@@ -70,17 +71,22 @@
 									*ngIf="registerForm.hasError('minlength', 'password')"
 									class="text-danger">*Password should contain 6 characters</small>
 
-								<!--								<div class="form-group pt-3">-->
-								<!--									<div class="input-field"-->
-								<!--										 [class.error]="registerForm.controls['password'].dirty && registerForm.hasError('required', 'password')">-->
-								<!--										<span class="fa fa-lock p-2"></span>-->
-								<!--										<input formControlName="password" [type]="type" placeholder="Confirm Password">-->
-								<!--										<span (click)="showPassword()" class="fa {{eyeIcon}}"></span>-->
-								<!--									</div>-->
-								<!--								</div>-->
-								<!--								<small-->
-								<!--									*ngIf="registerForm.controls['password'].dirty && registerForm.hasError('required', 'password')"-->
-								<!--									class="text-danger">*Password required</small>-->
+								<div class="form-group pt-3">
+									<div class="input-field"
+										 [class.error]="(registerForm.controls['confirmedpassword'].dirty && registerForm.hasError('required', 'confirmedpassword') ||
+										 registerForm.hasError('mustMatch', 'confirmedpassword'))">
+										<span class="fa fa-lock p-2"></span>
+										<input formControlName="confirmedpassword" name="confirmedpassword" [type]="type"
+											   placeholder="Confirm Password">
+										<span (click)="showPassword()" class="fa {{eyeIcon}}"></span>
+									</div>
+								</div>
+								<small
+									*ngIf="registerForm.controls['confirmedpassword'].dirty && registerForm.hasError('required', 'confirmedpassword')"
+									class="text-danger">*Password required</small>
+								<small
+									*ngIf="registerForm.hasError('mustMatch', 'confirmedpassword')"
+									class="text-danger">*Password should match</small>
 
 								<button (click)="onSubmit()" [disabled]="registerForm.invalid" type="submit"
 										class="btn btn-primary btn-block mt-5 w-100">Register
