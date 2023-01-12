@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {AuthChangeEvent, createClient, Session, SupabaseClient, User} from '@supabase/supabase-js';
 
 import {environment} from '../../environments/environment';
+import {Wallet} from "../models/wallet.model";
 
 export interface IUser {
 	email: string;
@@ -78,4 +79,17 @@ export class SupabaseService {
 		});
 	}
 
+	async addWallet(wallet: Wallet){
+		const { data, error} = await this.supabaseClient
+			.from('wallets')
+			.insert(wallet)
+		return { data, error };
+	}
+
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	public async getUserID(): Promise<any>{
+		return this.getUser().then((user) => {
+			return user?.id
+		});
+	}
 }
