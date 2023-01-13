@@ -81,18 +81,18 @@ export class SupabaseService {
 	}
 
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	async getUserID(): Promise<any> {
+	async getUserID(): Promise<any>{
 		return this.getUser().then((user) => {
 			return user?.id
 		});
 	}
 
 	//TODO: make walletservice
-	async addWallet(wallet: Wallet) {
-		const {data, error} = await this.supabaseClient
+	async addWallet(wallet: Wallet){
+		const { data, error} = await this.supabaseClient
 			.from('wallets')
 			.insert(wallet)
-		return {data, error};
+		return { data, error };
 	}
 
 	async getWallets(user: string) {
@@ -110,7 +110,7 @@ export class SupabaseService {
 			.from('wallets')
 			.select('*')
 			.eq('user', user)
-			.eq('public_wallet_key', public_wallet_key)
+			.eq('public_wallet_key', public_wallet_key).single()
 
 		return wallet.data;
 	}

@@ -13,6 +13,7 @@ import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.co
 import {ProfileComponent} from "./authorized/profile/profile.component";
 import {ResetPasswordComponent} from "./unauthorized/reset-password/reset-password.component";
 import {NewPasswordComponent} from "./unauthorized/new-password/new-password.component";
+import {SendMoneyComponent} from "./authorized/send-money/send-money.component";
 
 const routes: Routes = [
 	{
@@ -22,13 +23,14 @@ const routes: Routes = [
 			{path: 'tikkie', component: CreateTikkieComponent},
 			{path: 'view-wallet/:public_wallet_key', component: ViewWalletComponent},
 			{path: 'create-wallet', component: CreateWalletComponent},
+			{path: 'send-money', component: SendMoneyComponent},
 			{path: 'buy-hoin', component: BuySellHoinComponent, data: {buyHoin: true}},
 			{path: 'sell-hoin', component: BuySellHoinComponent, data: {buyHoin: false}},
 		]
 	},
 	// {path: '', redirectTo: 'signIn', pathMatch: 'full',},
 	{path: '', component: HomeComponent},
-	{path: 'profile', component: ProfileComponent},
+	// {path: 'profile', component: ProfileComponent},
 	{path: 'login', component: LoginComponent},
 	{path: 'register', component: RegisterComponent},
 	{path: 'new-pw', component: NewPasswordComponent},

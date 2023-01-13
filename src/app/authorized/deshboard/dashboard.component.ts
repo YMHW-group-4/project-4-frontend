@@ -21,7 +21,6 @@ export class DashboardComponent {
 
 	async ngOnInit() {
 		this.userId = await this.supabaseService.getUserID();
-
 		this.wallets = await this.supabaseService.getWallets(this.userId);
 	}
 }

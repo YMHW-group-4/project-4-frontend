@@ -1,6 +1,6 @@
 <input type="search" (keyup.enter)="navigate()" [(ngModel)]="public_wallet_key">
 <button (click)="navigate()">Search</button>
-<p>Wallet name: {{wallet[0].wallet_name}}</p>
-<p>Public wallet address: {{wallet[0].public_wallet_key}}</p>
-<p>Private wallet address: {{wallet[0].private_wallet_key}}</p>
+<p>Wallet name: {{wallet.wallet_name}}</p>
+<p>Public wallet key: {{wallet.public_wallet_key}}</p>
+<p>Private wallet key: {{wallet.private_wallet_key}}</p>
 <!--<p>Balance: {{wallet.balance}}</p>-->

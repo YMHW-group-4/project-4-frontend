@@ -10,10 +10,7 @@ import {SupabaseService} from "../../services/supabase.service";
 })
 export class ViewWalletComponent {
 
-	//TODO: hier nog naar kijken!!!
-	wallet: any[] = [];
-	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+	wallet: Wallet;
 	public_wallet_key: string;
 	userId: string;
 

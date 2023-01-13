@@ -21,6 +21,7 @@ import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.co
 import { ProfileComponent } from './authorized/profile/profile.component';
 import { ResetPasswordComponent } from './unauthorized/reset-password/reset-password.component';
 import { NewPasswordComponent } from './unauthorized/new-password/new-password.component';
+import { SendMoneyComponent } from './authorized/send-money/send-money.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { NewPasswordComponent } from './unauthorized/new-password/new-password.c
   ProfileComponent,
   ResetPasswordComponent,
   NewPasswordComponent,
+  SendMoneyComponent,
 	],
 	imports: [
 		BrowserModule,
