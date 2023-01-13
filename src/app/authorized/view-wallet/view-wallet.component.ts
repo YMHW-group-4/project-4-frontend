@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {WalletService} from "../../services/wallet.service";
 import {Wallet} from "../../models/Wallet";
+import {SupabaseService} from "../../services/supabase.service";
 
 @Component({
 	selector: 'app-view-wallet',
@@ -10,24 +10,34 @@ import {Wallet} from "../../models/Wallet";
 })
 export class ViewWalletComponent {
 
-	public wallet: Wallet;
-	public walletAddress: string;
+	//TODO: hier nog naar kijken!!!
+	wallet: any[] = [];
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-	constructor(private route: ActivatedRoute, private router: Router, private walletService: WalletService) {
-		this.init();
+	public_wallet_key: string;
+	userId: string;
+
+	constructor(private supabaseService: SupabaseService,
+				private route: ActivatedRoute,
+				private router: Router,
+				) {
 	}
 
-	private init() {
-		this.walletAddress = this.route.snapshot.params['walletAddress'];
+	async ngOnInit() {
+		this.userId = await this.supabaseService.getUserID();
+		this.public_wallet_key = this.route.snapshot.params['public_wallet_key'];
+		this.wallet = await this.supabaseService.getWallet(this.userId, this.public_wallet_key);
 
-		this.walletService.getWallet(this.walletAddress).then((walletData) => {
-			if (walletData != undefined) {
-				this.wallet = walletData;
-			}
-		})
+		console.log(this.wallet)
+
+		// this.supabaseService.getWallet(this.userId, this.public_wallet_key).then((walletData) => {
+		// 	if (walletData != undefined) {
+		// 		this.wallet = walletData;
+		// 	}
+		// })
 	}
 
 	public navigate() {
-		this.router.navigateByUrl(`/app/view-wallet/${this.walletAddress}`).then(_ => this.init())
+		this.router.navigateByUrl(`/app/view-wallet/${this.public_wallet_key}`).then(_ => this.ngOnInit())
 	}
 }

@@ -4,7 +4,7 @@ import {AuthService} from "../../services/auth.service";
 import {LoginService} from "../../services/login.service";
 import {Router} from "@angular/router";
 import {SupabaseService} from "../../services/supabase.service";
-import {Wallet} from "../../models/wallet.model";
+import {Wallet} from "../../models/Wallet";
 
 @Component({
 	selector: 'app-create-wallet',
@@ -22,7 +22,6 @@ export class CreateWalletComponent {
 	constructor(
 		private fb: FormBuilder,
 		private supabaseService: SupabaseService
-
 	) {
 	}
 

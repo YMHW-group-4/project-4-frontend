@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {AuthChangeEvent, createClient, Session, SupabaseClient, User} from '@supabase/supabase-js';
+import {AuthChangeEvent, createClient, Session, User} from '@supabase/supabase-js';
 
 import {environment} from '../../environments/environment';
-import {Wallet} from "../models/wallet.model";
+import {Wallet} from "../models/Wallet";
 
 export interface IUser {
 	email: string;
@@ -64,6 +64,7 @@ export class SupabaseService {
 		return this.supabaseClient.auth.signOut();
 	}
 
+	//TODO: doesn't work yet, whole component
 	public async updateProfile(userUpdate: IUser): Promise<any> {
 		const user = await this.getUser();
 
@@ -79,17 +80,38 @@ export class SupabaseService {
 		});
 	}
 
-	async addWallet(wallet: Wallet){
-		const { data, error} = await this.supabaseClient
-			.from('wallets')
-			.insert(wallet)
-		return { data, error };
-	}
-
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	public async getUserID(): Promise<any>{
+	async getUserID(): Promise<any> {
 		return this.getUser().then((user) => {
 			return user?.id
 		});
+	}
+
+	//TODO: make walletservice
+	async addWallet(wallet: Wallet) {
+		const {data, error} = await this.supabaseClient
+			.from('wallets')
+			.insert(wallet)
+		return {data, error};
+	}
+
+	async getWallets(user: string) {
+		const wallets = await this.supabaseClient
+			.from('wallets')
+			.select('*')
+			.eq('user', user)
+			.order('id');
+
+		return wallets.data;
+	}
+
+	async getWallet(user: string, public_wallet_key: string) {
+		const wallet = await this.supabaseClient
+			.from('wallets')
+			.select('*')
+			.eq('user', user)
+			.eq('public_wallet_key', public_wallet_key)
+
+		return wallet.data;
 	}
 }
