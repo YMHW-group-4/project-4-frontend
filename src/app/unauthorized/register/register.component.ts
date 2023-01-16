@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import Validateformfields from "../../helpers/validateformfields";
 import {RegisterService} from "../../services/register.service";
 import {SupabaseService} from "../../services/supabase.service";
+import {NotificationService} from "../../services/notification.service";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-register',
@@ -15,10 +17,9 @@ export class RegisterComponent {
 	isText: boolean = false
 	eyeIcon: string = "fa-eye-slash"
 
+	loading: boolean;
+
 	registerForm = this.fb.group({
-			// firstname: ['', Validators.required],
-			// lastname: ['', Validators.required],
-			// username: ['', Validators.required],
 			email: ['', Validators.required],
 			password: ['',
 				[Validators.required,
@@ -30,7 +31,11 @@ export class RegisterComponent {
 			validators: this.mustMatch('password', 'confirmedpassword')
 		})
 
-	constructor(private fb: FormBuilder, private supabaseService: SupabaseService) {
+	constructor(private fb: FormBuilder,
+				private supabaseService: SupabaseService,
+				private notifyService: NotificationService,
+				private router: Router,) {
+		this.loading = false;
 	}
 
 
@@ -57,16 +62,20 @@ export class RegisterComponent {
 
 	onSubmit() {
 		if (this.registerForm.valid) {
-			console.log(this.registerForm.value)
 			this.supabaseService.register(this.registerForm.value).then((user) => {
-				console.log(user);
+				this.registerForm.reset();
+				this.loading = true;
+				this.succesfullRegisterNotification();
+				this.router.navigateByUrl('login');
 			})
 		} else {
-			console.log("form is not valid")
+			// console.log("form is not valid")
 			Validateformfields.validateFormFields(this.registerForm)
 			alert("Invalid login")
 		}
 	}
 
-
+	succesfullRegisterNotification(){
+		this.notifyService.showSuccess("Please check your mailbox to confirm your account", "Welcome to Honey")
+	}
 }

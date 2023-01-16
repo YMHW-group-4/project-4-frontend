@@ -21,7 +21,7 @@ const routes: Routes = [
 			{path: '', component: DashboardComponent},
 			// {path: 'profile', component: ProfileComponent},
 			{path: 'tikkie', component: CreateTikkieComponent},
-			{path: 'view-wallet/:public_wallet_key', component: ViewWalletComponent},
+			{path: 'view-wallet/:wallet_name', component: ViewWalletComponent},
 			{path: 'create-wallet', component: CreateWalletComponent},
 			{path: 'send-money', component: SendMoneyComponent},
 			{path: 'buy-hoin', component: BuySellHoinComponent, data: {buyHoin: true}},

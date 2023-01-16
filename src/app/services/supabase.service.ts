@@ -105,12 +105,12 @@ export class SupabaseService {
 		return wallets.data;
 	}
 
-	async getWallet(user: string, public_wallet_key: string) {
+	async getWallet(user: string, wallet_name: string) {
 		const wallet = await this.supabaseClient
 			.from('wallets')
 			.select('*')
 			.eq('user', user)
-			.eq('public_wallet_key', public_wallet_key).single()
+			.eq('wallet_name', wallet_name).single()
 
 		return wallet.data;
 	}

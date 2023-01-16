@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {SupabaseService} from "../../services/supabase.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import Validateformfields from "../../helpers/validateformfields";
+import {NotificationService} from "../../services/notification.service";
+import {Router} from "@angular/router";
 
 @Component({
 	selector: 'app-reset-password',
@@ -9,6 +11,8 @@ import Validateformfields from "../../helpers/validateformfields";
 	styleUrls: ['./reset-password.component.scss']
 })
 export class ResetPasswordComponent {
+
+	loading: boolean;
 
 	resetForm = this.formBuilder.group({
 		email: ['', Validators.required],
@@ -19,17 +23,28 @@ export class ResetPasswordComponent {
 
 	constructor(
 		private readonly formBuilder: FormBuilder,
-		private supabaseService: SupabaseService
+		private supabaseService: SupabaseService,
+		private notifyService: NotificationService,
+		private router: Router,
 	) {
+		this.loading = false;
 	}
 
 	onSubmit() {
 		if (this.resetForm.valid) {
 			this.supabaseService.resetPassword(this.resetForm.value)
+			this.resetForm.reset();
+			this.loading = true;
+			this.succesfullResetNotification();
+			this.router.navigateByUrl('login');
 		} else {
 			console.log("form is not valid")
 			Validateformfields.validateFormFields(this.resetForm)
 			alert("Invalid reset")
 		}
+	}
+
+	succesfullResetNotification(){
+		this.notifyService.showSuccess("Please check your mailbox to reset your password", "Email sent")
 	}
 }

@@ -89,7 +89,7 @@
 									class="text-danger">*Password should match</small>
 
 								<button (click)="onSubmit()" [disabled]="registerForm.invalid" type="submit"
-										class="btn btn-primary btn-block mt-5 w-100">Register
+										class="btn btn-primary btn-block mt-5 w-100">{{ loading ? 'Loading...' : 'Register' }}
 								</button>
 								<div class="text-center d-flex justify-content-center py-3 text-muted">Already an user?
 									&nbsp;

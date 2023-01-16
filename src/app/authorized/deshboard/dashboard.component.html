@@ -1,5 +1,3 @@
-
-
 <div class="outer">
 	<div class="container">
 		<div class="row">
@@ -9,13 +7,19 @@
 						<h3 class="pt-3 font-weigth-bold">Wallets</h3>
 					</div>
 					<div class="panel-body p-3">
+						<div class="row justify-content-center mx-3">
 
-						<ul style="list-style-type: none;">
-							<li *ngFor="let wallet of wallets">
-								<a [routerLink]=" '/app/view-wallet/' + wallet.public_wallet_key">{{wallet.wallet_name}} - {{wallet.balance}}</a>
-							</li>
-						</ul>
+							<div class="list-group">
+								<ul>
+									<li *ngFor="let wallet of wallets">
+										<button class="list-group-item list-group-item-action" type="button">
+											<a [routerLink]=" '/app/view-wallet/' + wallet.wallet_name">{{wallet.wallet_name}}</a>
+										</button>
+									</li>
+								</ul>
+							</div>
 
+						</div>
 					</div>
 				</div>
 			</div>

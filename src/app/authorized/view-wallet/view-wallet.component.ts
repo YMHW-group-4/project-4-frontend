@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Wallet} from "../../models/Wallet";
 import {SupabaseService} from "../../services/supabase.service";
+import {NotificationService} from "../../services/notification.service";
 
 @Component({
 	selector: 'app-view-wallet',
@@ -11,21 +12,21 @@ import {SupabaseService} from "../../services/supabase.service";
 export class ViewWalletComponent {
 
 	wallet: Wallet;
+	wallet_name: string;
 	public_wallet_key: string;
 	userId: string;
 
 	constructor(private supabaseService: SupabaseService,
 				private route: ActivatedRoute,
 				private router: Router,
-				) {
+				private notifyService: NotificationService,
+	) {
 	}
 
 	async ngOnInit() {
 		this.userId = await this.supabaseService.getUserID();
-		this.public_wallet_key = this.route.snapshot.params['public_wallet_key'];
-		this.wallet = await this.supabaseService.getWallet(this.userId, this.public_wallet_key);
-
-		console.log(this.wallet)
+		this.wallet_name = this.route.snapshot.params['wallet_name'];
+		this.wallet = await this.supabaseService.getWallet(this.userId, this.wallet_name)
 
 		// this.supabaseService.getWallet(this.userId, this.public_wallet_key).then((walletData) => {
 		// 	if (walletData != undefined) {
@@ -35,6 +36,11 @@ export class ViewWalletComponent {
 	}
 
 	public navigate() {
-		this.router.navigateByUrl(`/app/view-wallet/${this.public_wallet_key}`).then(_ => this.ngOnInit())
+		this.router.navigateByUrl(`/app/view-wallet/${this.wallet_name}`).then(_ => this.ngOnInit())
+	}
+
+	//TODO: make specific errors
+	walletNotAddedNotification() {
+		this.notifyService.showError("Could not found this wallet", "Wallet Not Found")
 	}
 }

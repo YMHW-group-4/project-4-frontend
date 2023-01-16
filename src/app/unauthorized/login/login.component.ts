@@ -55,7 +55,7 @@ export class LoginComponent {
 		this.loading = true;
 		this.supabaseService.signIn(email, password)
 			.then((user) => {
-				console.log(user);
+				// console.log(user);
 				this.user = user;
 				this.router.navigateByUrl('app').catch((errer) => {
 					console.log(errer);

@@ -47,11 +47,11 @@ export class CreateWalletComponent {
 		this.supabaseService.addWallet(this.wallet).then((data: {w:any, error: any}) => {
 			if(data.error == null){
 				this.walletAddedNotification()
-				this.wallet.wallet_name="";
+				this.createWalletForm.reset();
 				this.added = true;
 			}
 			else{
-
+				this.walletNotAddedNotification();
 			}
 		})
 
@@ -63,5 +63,10 @@ export class CreateWalletComponent {
 
 	walletAddedNotification(){
 		this.notifyService.showSuccess(this.wallet.wallet_name + " is added to your account", "Added")
+	}
+
+	//TODO: make specific errors
+	walletNotAddedNotification(){
+		this.notifyService.showError(this.wallet.wallet_name + " is not added to your account due to ...", "Wallet Not Added")
 	}
 }
