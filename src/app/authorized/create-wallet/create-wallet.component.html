@@ -13,19 +13,18 @@
 
 									<div class="input-field"
 										 [class.error]="createWalletForm.controls['name'].dirty && createWalletForm.hasError('required', 'name')">
-										<input [(ngModel)]="wallet.wallet_name" formControlName="name" type="text"
+										<input [(ngModel)]="wallet.wallet_name" (input)="setAddedFalse()" formControlName="name" type="text"
 											   placeholder="Wallet Name">
 									</div>
 								</div>
 								<small
-									*ngIf="createWalletForm.controls['name'].dirty && createWalletForm.hasError('required', 'name')"
+									*ngIf="createWalletForm.controls['name'].dirty && createWalletForm.hasError('required', 'name') && added == false"
 									class="text-danger">*Name required</small>
 
 
-								<button (click)="addWallet()" [disabled]="createWalletForm.invalid" type="submit"
+								<button (click)="addWallet()" [disabled]="createWalletForm.invalid" value="Submit"
 										class="btn btn-primary btn-block mt-5 w-100">Create
 								</button>
-
 							</div>
 						</form>
 

@@ -89,10 +89,10 @@ export class SupabaseService {
 
 	//TODO: make walletservice
 	async addWallet(wallet: Wallet){
-		const { data, error} = await this.supabaseClient
+		const { w, error} = await this.supabaseClient
 			.from('wallets')
 			.insert(wallet)
-		return { data, error };
+		return { w, error };
 	}
 
 	async getWallets(user: string) {

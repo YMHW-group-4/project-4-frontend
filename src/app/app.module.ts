@@ -18,10 +18,12 @@ import {LoginComponent} from "./unauthorized/login/login.component";
 import {TransverComponent} from "./authorized/transver/transver.component";
 import {RegisterComponent} from "./unauthorized/register/register.component";
 import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.component";
-import { ProfileComponent } from './authorized/profile/profile.component';
-import { ResetPasswordComponent } from './unauthorized/reset-password/reset-password.component';
-import { NewPasswordComponent } from './unauthorized/new-password/new-password.component';
-import { SendMoneyComponent } from './authorized/send-money/send-money.component';
+import {ProfileComponent} from './authorized/profile/profile.component';
+import {ResetPasswordComponent} from './unauthorized/reset-password/reset-password.component';
+import {NewPasswordComponent} from './unauthorized/new-password/new-password.component';
+import {SendMoneyComponent} from './authorized/send-money/send-money.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -37,10 +39,10 @@ import { SendMoneyComponent } from './authorized/send-money/send-money.component
 		TransverComponent,
 		RegisterComponent,
 		CreateWalletComponent,
-  ProfileComponent,
-  ResetPasswordComponent,
-  NewPasswordComponent,
-  SendMoneyComponent,
+		ProfileComponent,
+		ResetPasswordComponent,
+		NewPasswordComponent,
+		SendMoneyComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -50,7 +52,7 @@ import { SendMoneyComponent } from './authorized/send-money/send-money.component
 		NgxAsyncTemplateModule,
 		BrowserAnimationsModule, // required animations module
 		ToastrModule.forRoot(), // ToastrModule added
-		ReactiveFormsModule, // for login en registration
+		ReactiveFormsModule, NgbModule, // for login en registration
 	],
 	providers: [],
 	bootstrap: [AppComponent]
