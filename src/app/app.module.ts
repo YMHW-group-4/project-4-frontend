@@ -6,7 +6,7 @@ import {AppComponent} from './app.component';
 import {DashboardComponent} from "./authorized/deshboard/dashboard.component";
 import {QRCodeModule} from "angularx-qrcode";
 import {CreateTikkieComponent} from "./authorized/create-tikkie/create-tikkie.component";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NavigationComponent} from './authorized/navigation/navigation.component';
 import {BuySellHoinComponent} from "./authorized/buy-sell-hoin/buy-sell-hoin.component";
 import {NgxAsyncTemplateModule} from "@klippa/ngx-async-template";
@@ -18,6 +18,13 @@ import {LoginComponent} from "./unauthorized/login/login.component";
 import {TransverComponent} from "./authorized/transver/transver.component";
 import {RegisterComponent} from "./unauthorized/register/register.component";
 import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.component";
+import {ProfileComponent} from './authorized/profile/profile.component';
+import {ResetPasswordComponent} from './unauthorized/reset-password/reset-password.component';
+import {NewPasswordComponent} from './unauthorized/new-password/new-password.component';
+import {SendMoneyComponent} from './authorized/send-money/send-money.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+
 
 @NgModule({
 	declarations: [
@@ -32,6 +39,10 @@ import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.co
 		TransverComponent,
 		RegisterComponent,
 		CreateWalletComponent,
+		ProfileComponent,
+		ResetPasswordComponent,
+		NewPasswordComponent,
+		SendMoneyComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -41,6 +52,7 @@ import {CreateWalletComponent} from "./authorized/create-wallet/create-wallet.co
 		NgxAsyncTemplateModule,
 		BrowserAnimationsModule, // required animations module
 		ToastrModule.forRoot(), // ToastrModule added
+		ReactiveFormsModule, NgbModule, // for login en registration
 	],
 	providers: [],
 	bootstrap: [AppComponent]
