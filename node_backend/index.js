@@ -5,7 +5,7 @@ const app = express()
 app.use(cors());
 
 const port = 3000;
-const availableNodes = [{host: 'localhost', port: 2202, url: 'http://localhost:2202', connections: 0}];
+const availableNodes = [];
 
 app.get('/register_node', (req, res) => {
 	const port = req.query?.port
