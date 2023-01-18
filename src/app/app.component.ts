@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { SupabaseService } from './services/supabase.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {SupabaseService} from './services/supabase.service';
+import {ApiService} from "./services/api.service";
 
 @Component({
 	selector: 'app-root',
@@ -12,8 +13,11 @@ export class AppComponent implements OnInit {
 	session: any;
 
 	constructor(private router: Router,
-				private supabaseService: SupabaseService) {
+	            private supabaseService: SupabaseService,
+	            private apiService: ApiService,
+	) {
 		this.session = this.supabaseService.getSession();
+		this.apiService.getNode();
 	}
 
 	public ngOnInit(): void {

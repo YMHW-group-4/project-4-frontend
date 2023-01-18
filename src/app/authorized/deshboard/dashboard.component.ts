@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
-import {WalletService} from "../../services/wallet.service";
-import {Wallets} from "../../models/Wallet";
 import {SupabaseService} from "../../services/supabase.service";
 import {ActivatedRoute} from "@angular/router";
+import {ApiService} from "../../services/api.service";
 
 @Component({
 	selector: 'app-deshboard',
@@ -16,7 +15,9 @@ export class DashboardComponent {
 
 	constructor(
 		private supabaseService: SupabaseService,
-		private route: ActivatedRoute) {
+		private apiService: ApiService,
+		private route: ActivatedRoute,
+	) {
 	}
 
 	async ngOnInit() {

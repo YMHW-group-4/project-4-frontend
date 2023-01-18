@@ -1,11 +1,10 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../services/auth.service";
-import {LoginService} from "../../services/login.service";
-import {Router} from "@angular/router";
-import {SupabaseService} from "../../services/supabase.service";
+import {Axios} from "axios";
 import {Wallet} from "../../models/Wallet";
 import {NotificationService} from "../../services/notification.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {SupabaseService} from "../../services/supabase.service";
+import {ApiService} from "../../services/api.service";
 
 @Component({
 	selector: 'app-create-wallet',
@@ -22,7 +21,8 @@ export class CreateWalletComponent {
 	constructor(
 		private fb: FormBuilder,
 		private supabaseService: SupabaseService,
-		private notifyService : NotificationService
+		private notifyService : NotificationService,
+		private apiService: ApiService,
 	) {
 	}
 
@@ -41,8 +41,10 @@ export class CreateWalletComponent {
 		}
 
 		this.wallet.user = await this.supabaseService.getUserID();
-		this.wallet.public_wallet_key = "todo: generate public key on blockchain";
-		this.wallet.private_wallet_key = "todo: generate private key on blockchain";
+		const wallets = await this.apiService.getWallets()
+		console.log(wallets);
+		this.wallet.public_wallet_key = wallets.public;
+		this.wallet.private_wallet_key = wallets.private;
 
 		this.supabaseService.addWallet(this.wallet).then((data: {w:any, error: any}) => {
 			if(data.error == null){
