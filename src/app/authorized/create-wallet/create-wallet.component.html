@@ -1,1 +1,36 @@
-<p>create-wallet works!</p>
+<div class="outer">
+	<div class="container">
+		<div class="row">
+			<div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3" style="width: 844px; height: 390px;">
+				<div class="panel border bg-white">
+					<div class="panel-heading">
+						<h3 class="pt-3 font-weigth-bold">Create Wallet</h3>
+					</div>
+					<div class="panel-body p-3">
+						<form [formGroup]="createWalletForm">
+							<div class="row justify-content-center mx-3">
+								<div class="form-group pt-3">
+
+									<div class="input-field"
+										 [class.error]="createWalletForm.controls['name'].dirty && createWalletForm.hasError('required', 'name')">
+										<input [(ngModel)]="wallet.wallet_name" (input)="setAddedFalse()" formControlName="name" type="text"
+											   placeholder="Wallet Name">
+									</div>
+								</div>
+								<small
+									*ngIf="createWalletForm.controls['name'].dirty && createWalletForm.hasError('required', 'name') && added == false"
+									class="text-danger">*Name required</small>
+
+
+								<button (click)="addWallet()" [disabled]="createWalletForm.invalid" value="Submit"
+										class="btn btn-primary btn-block mt-5 w-100">Create
+								</button>
+							</div>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

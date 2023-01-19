@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {WalletService} from "../../services/wallet.service";
-import {Wallets} from "../../models/Wallet";
+import {SupabaseService} from "../../services/supabase.service";
+import {ActivatedRoute} from "@angular/router";
+import {ApiService} from "../../services/api.service";
 
 @Component({
 	selector: 'app-deshboard',
@@ -9,13 +10,19 @@ import {Wallets} from "../../models/Wallet";
 })
 export class DashboardComponent {
 
-	public wallets: Wallets;
+	wallets: any[] = [];
+	userId: string;
 
-	constructor(private walletService: WalletService) {
-		const username: string = 'user1';
-		this.walletService.getWallets(username).then((wallets) => {
-			this.wallets = wallets
-		})
+	constructor(
+		private supabaseService: SupabaseService,
+		private apiService: ApiService,
+		private route: ActivatedRoute,
+	) {
+	}
+
+	async ngOnInit() {
+		this.userId = await this.supabaseService.getUserID();
+		this.wallets = await this.supabaseService.getWallets(this.userId);
 	}
 }
 

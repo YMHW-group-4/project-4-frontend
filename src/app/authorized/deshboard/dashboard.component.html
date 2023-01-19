@@ -1,6 +1,28 @@
-<p>deshboard works!</p>
-<ul>
-	<li *ngFor="let wallet of wallets">
-		<a [routerLink]=" '/app/view-wallet/' + wallet.walletAddress">{{wallet.walletAddress}} - {{wallet.balance}}</a>
-	</li>
-</ul>
+<div class="outer">
+	<div class="container">
+		<div class="row">
+			<div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3" style="width: 844px; height: 390px;">
+				<div class="panel border bg-white w-100 h-100">
+					<div class="panel-heading">
+						<h3 class="pt-3 font-weigth-bold">Wallets</h3>
+					</div>
+					<div class="panel-body p-3">
+						<div class="row justify-content-center mx-3">
+
+							<div class="list-group">
+								<ul>
+									<li *ngFor="let wallet of wallets">
+										<button class="list-group-item list-group-item-action" type="button">
+											<a [routerLink]=" '/app/view-wallet/' + wallet.wallet_name">{{wallet.wallet_name}}</a>
+										</button>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

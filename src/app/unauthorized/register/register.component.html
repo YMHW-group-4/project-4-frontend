@@ -1,1 +1,113 @@
-<p>register works!</p>
+<div class="outer">
+	<div class="container">
+		<div class="row">
+			<div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3">
+				<div class="panel border bg-white">
+					<div class="panel-heading">
+						<h3 class="pt-3 font-weigth-bold">Register</h3>
+					</div>
+					<div class="panel-body p-3">
+						<form [formGroup]="registerForm">
+							<div class="row justify-content-center mx-3">
+
+<!--								<div class="form-group pt-3">-->
+<!--									<div class="input-field"-->
+<!--										 [class.error]="registerForm.controls['firstname'].dirty && registerForm.hasError('required', 'firstname')">-->
+<!--										<span class="fa fa-user p-2"></span>-->
+<!--										<input formControlName="firstname" type="text" placeholder="First Name">-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<small-->
+<!--									*ngIf="registerForm.controls['firstname'].dirty && registerForm.hasError('required', 'firstname')"-->
+<!--									class="text-danger">*First name required</small>-->
+
+<!--								<div class="form-group pt-3">-->
+<!--									<div class="input-field"-->
+<!--										 [class.error]="registerForm.controls['lastname'].dirty && registerForm.hasError('required', 'lastname')">-->
+<!--										<span class="fa fa-user p-2"></span>-->
+<!--										<input formControlName="lastname" type="text" placeholder="Last Name">-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<small-->
+<!--									*ngIf="registerForm.controls['lastname'].dirty && registerForm.hasError('required', 'lastname')"-->
+<!--									class="text-danger">*Last name required</small>-->
+
+<!--								<div class="form-group pt-3">-->
+<!--									<div class="input-field"-->
+<!--										 [class.error]="registerForm.controls['username'].dirty && registerForm.hasError('required', 'username')">-->
+<!--										<span class="fa fa-user p-2"></span>-->
+<!--										<input formControlName="username" type="text" placeholder="Username">-->
+<!--									</div>-->
+<!--								</div>-->
+<!--								<small-->
+<!--									*ngIf="registerForm.controls['username'].dirty && registerForm.hasError('required', 'username')"-->
+<!--									class="text-danger">*Username required</small>-->
+
+								<div class="form-group pt-3">
+									<div class="input-field"
+										 [class.error]="registerForm.controls['email'].dirty && registerForm.hasError('required', 'email')">
+										<span class="fa fa-regular fa-envelope p-2"></span>
+										<input formControlName="email" type="text" placeholder="Email">
+									</div>
+								</div>
+								<small
+									*ngIf="registerForm.controls['email'].dirty && registerForm.hasError('required', 'email')"
+									class="text-danger">*Email required</small>
+
+								<div class="form-group pt-3">
+									<div class="input-field"
+										 [class.error]="(registerForm.controls['password'].dirty && registerForm.hasError('required', 'password') ||
+										 registerForm.hasError('minlength', 'password'))">
+										<span class="fa fa-lock p-2"></span>
+										<input formControlName="password" name="password" [type]="type"
+											   placeholder="Password">
+										<span (click)="showPassword()" class="fa {{eyeIcon}}"></span>
+									</div>
+								</div>
+								<small
+									*ngIf="registerForm.controls['password'].dirty && registerForm.hasError('required', 'password')"
+									class="text-danger">*Password required</small>
+								<small
+									*ngIf="registerForm.hasError('minlength', 'password')"
+									class="text-danger">*Password should contain 6 characters</small>
+
+								<div class="form-group pt-3">
+									<div class="input-field"
+										 [class.error]="(registerForm.controls['confirmedpassword'].dirty && registerForm.hasError('required', 'confirmedpassword') ||
+										 registerForm.hasError('mustMatch', 'confirmedpassword'))">
+										<span class="fa fa-lock p-2"></span>
+										<input formControlName="confirmedpassword" name="confirmedpassword" [type]="type"
+											   placeholder="Confirm Password">
+										<span (click)="showPassword()" class="fa {{eyeIcon}}"></span>
+									</div>
+								</div>
+								<small
+									*ngIf="registerForm.controls['confirmedpassword'].dirty && registerForm.hasError('required', 'confirmedpassword')"
+									class="text-danger">*Password required</small>
+								<small
+									*ngIf="registerForm.hasError('mustMatch', 'confirmedpassword')"
+									class="text-danger">*Password should match</small>
+
+								<button (click)="onSubmit()" [disabled]="registerForm.invalid" type="submit"
+										class="btn btn-primary btn-block mt-5 w-100">{{ loading ? 'Loading...' : 'Register' }}
+								</button>
+								<div class="text-center d-flex justify-content-center py-3 text-muted">Already an user?
+									&nbsp;
+									<a id="register"
+									   routerLink="/login">Login</a>
+								</div>
+							</div>
+						</form>
+					</div>
+					<!--					<div class="mx-3 my-2 py-2 bordert">-->
+					<!--						<div class="text-center py-3">-->
+					<!--							<a href="http://www.google.com" target="_blank" class="px-2"> <img src="https://play.google.com/store/apps/dev?id=5700313618786177705&hl=nl&gl=US" alt=""></a>-->
+					<!--							<a href="http://www.github.com" target="_blank" class="px-2"> <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fgithub.com%2Flogos&psig=AOvVaw1LvounLUxjEbLBp1i-cHyD&ust=1670321664310000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCKji8Z2f4vsCFQAAAAAdAAAAABAW" alt=""></a>-->
+					<!--							<a href="http://www.facebook.com" target="_blank" class="px-2"> <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fnl-nl.facebook.com%2F&psig=AOvVaw0hWZLSq_8tmZSGpcfWc_ag&ust=1670321691138000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCIC7kKyf4vsCFQAAAAAdAAAAABAD" alt=""></a>-->
+					<!--						</div>-->
+					<!--					</div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

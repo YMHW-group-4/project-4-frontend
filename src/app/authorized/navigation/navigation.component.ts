@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import {SupabaseService} from "../../services/supabase.service";
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
 
-  constructor() { }
+  constructor(
+	  private supabaseService: SupabaseService
+  ) { }
 
-  ngOnInit(): void {
-  }
+	public signOut(){
+		this.supabaseService.signOut()
+	}
 
 }
