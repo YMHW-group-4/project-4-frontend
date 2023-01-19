@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {Axios} from "axios";
 import {Wallet} from "../../models/Wallet";
 import {NotificationService} from "../../services/notification.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -21,7 +20,7 @@ export class CreateWalletComponent {
 	constructor(
 		private fb: FormBuilder,
 		private supabaseService: SupabaseService,
-		private notifyService : NotificationService,
+		private notifyService: NotificationService,
 		private apiService: ApiService,
 	) {
 	}
@@ -41,34 +40,35 @@ export class CreateWalletComponent {
 		}
 
 		this.wallet.user = await this.supabaseService.getUserID();
-		const wallets = await this.apiService.getWallets()
-		console.log(wallets);
+		const wallets = await this.apiService.getWallets().catch((e) => {
+			this.notifyService.showError("Could not get the wallet from the blockchain", "Wallet Not Added")
+			return {'private': 'null', 'public': 'null'};
+		})
 		this.wallet.public_wallet_key = wallets.public;
 		this.wallet.private_wallet_key = wallets.private;
 
-		this.supabaseService.addWallet(this.wallet).then((data: {w:any, error: any}) => {
-			if(data.error == null){
+		this.supabaseService.addWallet(this.wallet).then((data: { w: any, error: any }) => {
+			if (data.error == null) {
 				this.walletAddedNotification()
 				this.createWalletForm.reset();
 				this.added = true;
-			}
-			else{
+			} else {
 				this.walletNotAddedNotification();
 			}
 		})
 
 	}
 
-	setAddedFalse(){
+	setAddedFalse() {
 		this.added = false;
 	}
 
-	walletAddedNotification(){
+	walletAddedNotification() {
 		this.notifyService.showSuccess(this.wallet.wallet_name + " is added to your account", "Added")
 	}
 
 	//TODO: make specific errors
-	walletNotAddedNotification(){
+	walletNotAddedNotification() {
 		this.notifyService.showError(this.wallet.wallet_name + " is not added to your account due to ...", "Wallet Not Added")
 	}
 }
