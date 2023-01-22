@@ -16,6 +16,8 @@ export class CreateWalletComponent {
 	user_id: string;
 	added: boolean;
 	createWalletForm!: FormGroup;
+	wo_wallets: any[] = [];
+	canCreate: boolean;
 
 	constructor(
 		private fb: FormBuilder,
@@ -28,6 +30,7 @@ export class CreateWalletComponent {
 	ngOnInit(): void {
 		this.wallet = new Wallet;
 		this.added = false;
+		this.canCreate = false;
 
 		this.createWalletForm = this.fb.group({
 			name: ['', Validators.required],
@@ -39,32 +42,62 @@ export class CreateWalletComponent {
 			return;
 		}
 
-		this.wallet.user = await this.supabaseService.getUserID();
-		const wallets = await this.apiService.getWallets().catch((e) => {
-			this.notifyService.showError("Could not get the wallet from the blockchain", "Wallet Not Added")
-			return {'private': 'null', 'public': 'null'};
-		})
-		this.wallet.public_wallet_key = wallets.public;
-		this.wallet.private_wallet_key = wallets.private;
+		await this.setUserId();
+		await this.getWallets(this.user_id);
 
-		this.supabaseService.addWallet(this.wallet).then((data: { w: any, error: any }) => {
-			if (data.error == null) {
-				this.walletAddedNotification()
-				this.createWalletForm.reset();
-				this.added = true;
-			} else {
-				this.walletNotAddedNotification();
+		for (let w of this.wo_wallets) {
+			if (this.wallet.wallet_name == w.wallet_name) {
+				this.walletnameAlreadyToken();
+				return;
 			}
-		})
+			else{
+				this.canCreate = true;
+			}
+		}
 
+		if(this.canCreate){
+			const wallets = await this.apiService.getWallets().catch((e) => {
+				this.notifyService.showError("Could not create wallet from the blockchain", "Couldn't get keypair")
+				return {'private': 'null', 'public': 'null'};
+			})
+
+			this.wallet.public_wallet_key = wallets.public;
+			this.wallet.private_wallet_key = wallets.private;
+			this.wallet.user = this.user_id;
+
+			this.supabaseService.addWallet(this.wallet).then((data: { w: any, error: any }) => {
+				if (data.error == null) {
+					this.walletAddedNotification()
+					this.createWalletForm.reset();
+					this.added = true;
+				} else {
+					this.walletNotAddedNotification();
+				}
+			})
+		}
 	}
 
 	setAddedFalse() {
 		this.added = false;
 	}
 
+	async setUserId() {
+		this.user_id = await this.supabaseService.getUserID();
+	}
+
+	async getWallets(u_id: string) {
+		this.wo_wallets = await this.supabaseService.getWallets(u_id);
+	}
+
+
+
+	//notifications
 	walletAddedNotification() {
 		this.notifyService.showSuccess(this.wallet.wallet_name + " is added to your account", "Added")
+	}
+
+	walletnameAlreadyToken() {
+		this.notifyService.showError("Wallet with name " + this.wallet.wallet_name + " already exists", "Could Not Add Wallet")
 	}
 
 	//TODO: make specific errors
