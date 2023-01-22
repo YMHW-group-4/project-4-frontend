@@ -9,7 +9,7 @@ import {Wallet} from "../../models/Wallet";
   styleUrls: ['./send-money.component.scss']
 })
 export class SendMoneyComponent implements OnInit {
-	// recipient: string
+	recipient: string
 	wallets: any[] = [];
 	userId: string;
 	sendHoinForm!: FormGroup

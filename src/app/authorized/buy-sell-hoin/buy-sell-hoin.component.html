@@ -1,5 +1,58 @@
-<p *ngIf="buyHoin">Buy Hoin</p>
-<p *ngIf="!buyHoin">Sell Hoin</p>
-<input type="number" [(ngModel)]="amount">
-<button (click)="transferHoin()">Submit</button>
+<!--<p *ngIf="buyHoin">Buy Hoin</p>-->
+<!--<p *ngIf="!buyHoin">Sell Hoin</p>-->
+<!--<input type="number" [(ngModel)]="amount">-->
+<!--<button (click)="transferHoin()">Submit</button>-->
+
+<div class="outer">
+	<div class="container">
+		<div class="row">
+			<div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3" style="width: 844px; height: 390px;">
+				<div class="panel border bg-white">
+					<div class="panel-heading">
+						<h3 *ngIf="buyHoin" class="pt-3 font-weigth-bold">Buy Hoin</h3>
+						<h3 *ngIf="!buyHoin" class="pt-3 font-weigth-bold">Sell Hoin</h3>
+					</div>
+					<div class="panel-body p-3">
+						<form [formGroup]="buy_sellHoinForm">
+							<div class="row justify-content-center mx-3">
+
+								<div class="form-group pt-3">
+									<div class="input-field">
+										<select class="form-control">
+											<option *ngFor="let w of wallets" [ngValue]="w">{{w.wallet_name}}</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="form-group pt-3">
+									<div class="input-field"
+										 [class.error]="buy_sellHoinForm.controls['amount'].dirty && buy_sellHoinForm.hasError('required', 'amount')">
+										<input [(ngModel)]="amount" formControlName="amount" type="text"
+											   placeholder="Amount">
+									</div>
+								</div>
+								<small
+									*ngIf="buy_sellHoinForm.controls['amount'].dirty && buy_sellHoinForm.hasError('required', 'amount')"
+									class="text-danger">*Amount required</small>
+
+								<small
+									*ngIf="buy_sellHoinForm.hasError('pattern', 'amount')"
+									class="text-danger">*Fill in a validate amount</small>
+
+								<small
+									*ngIf="buy_sellHoinForm.hasError('min', 'amount')"
+									class="text-danger">*Amount must be greater than 0</small>
+
+								<button (click)="transferHoin()" [disabled]="buy_sellHoinForm.invalid" type="submit"
+										class="btn btn-primary btn-block mt-5 w-100">Submit
+								</button>
+
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
