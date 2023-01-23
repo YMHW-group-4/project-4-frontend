@@ -22,7 +22,7 @@ export class NavigationComponent {
 
 	public signOut() {
 		this.signOutNotification();
-		this.supabaseService.signOut()
+		this.supabaseService.signout();
 	}
 
 

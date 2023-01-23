@@ -1,12 +1,40 @@
+<!--<div class="container">-->
+<!--	<div class="navigation">-->
+<!--		<a routerLink="/app">Home</a>-->
+<!--		&lt;!&ndash;		<a routerLink="/app/profile">Profile</a>&ndash;&gt;-->
+<!--		<a routerLink="/app/create-wallet">Create wallet</a>-->
+<!--		<a routerLink="/app/send-money">Send Hoin</a>-->
+<!--		<a routerLink="/app/buy-hoin">Buy Hoin</a>-->
+<!--		<a routerLink="/app/sell-hoin">Sell Hoin</a>-->
+<!--		<a routerLink="../" (click)="signOut()">Sign Out</a>-->
+<!--	</div>-->
+<!--	<div class="main">-->
+<!--		<router-outlet></router-outlet>-->
+<!--	</div>-->
+<!--</div>-->
+
+
 <div class="container">
 	<div class="navigation">
-		<a routerLink="/app">Home</a>
-<!--		<a routerLink="/app/profile">Profile</a>-->
-		<a routerLink="/app/create-wallet">Create wallet</a>
-		<a routerLink="/app/send-money">Send Hoin</a>
-		<a routerLink="/app/buy-hoin">Buy Hoin</a>
-		<a routerLink="/app/sell-hoin">Sell Hoin</a>
-		<a routerLink="../" (click)="signOut()">Sign Out</a>
+
+		<div class="row">
+			<div class="col">
+				<div ngbDropdown class="d-inline-block">
+					<button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+<!--						<i class="fa-sharp fa-solid fa-bars"></i>-->
+					</button>
+					<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+						<button ngbDropdownItem><a routerLink="/app">Home</a></button>
+						<button ngbDropdownItem><a routerLink="/app/create-wallet">Create wallet</a></button>
+						<button ngbDropdownItem><a routerLink="/app/send-money">Send Hoin</a></button>
+						<button ngbDropdownItem><a routerLink="/app/buy-hoin">Buy Hoin</a></button>
+						<button ngbDropdownItem><a routerLink="/app/sell-hoin">Sell Hoin</a></button>
+						<button ngbDropdownItem><a routerLink="../" (click)="signOut()">Sign Out</a></button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 	<div class="main">
 		<router-outlet></router-outlet>

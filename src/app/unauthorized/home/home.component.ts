@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {SupabaseService} from "../../services/supabase.service";
 
 @Component({
 	selector: 'app-home',
@@ -7,7 +8,27 @@ import {Component} from '@angular/core';
 })
 export class HomeComponent {
 
-	constructor() {
+	constructor(private supabaseService: SupabaseService) {
+
 	}
 
+	googleLogin(){
+		this.supabaseService.signInWithGoogle();
+	}
+
+	twitterLogin(){
+		this.supabaseService.signInWithTwitter();
+	}
+
+	facebookLogin(){
+		this.supabaseService.signInWithFacebook();
+	}
+
+	appleLogin(){
+		this.supabaseService.signInWithApple();
+	}
+
+	githubLogin(){
+		this.supabaseService.signInWithGitHub();
+	}
 }

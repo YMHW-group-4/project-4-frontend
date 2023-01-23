@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import {AuthService} from "../../services/auth.service";
-import {LoginService} from "../../services/login.service";
 import {User} from "../../models/User";
 import {Router} from "@angular/router";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -31,8 +29,6 @@ export class LoginComponent {
 
 
 	constructor(
-		private authService: AuthService,
-		private loginService: LoginService,
 		private fb: FormBuilder,
 		private readonly formBuilder: FormBuilder,
 		private router: Router,
@@ -41,15 +37,6 @@ export class LoginComponent {
 		this.loading = false;
 		this.user = {} as IUser;
 	}
-
-	// public doLogin() {
-	// 	this.loginService.login(this.username, this.password).then((user: User) => {
-	// 		// TODO: Auth flow.
-	// 		// TODO: Create checks.
-	// 		console.log(user);
-	// 		this.router.navigateByUrl('/app')
-	// 	});
-	// }
 
 	public doLogin(email: string, password: string): void {
 		this.loading = true;
@@ -74,7 +61,7 @@ export class LoginComponent {
 	onSubmit() {
 		if (this.signInForm.valid) {
 			//	send to db
-			console.log(this.signInForm.value)
+			// console.log(this.signInForm.value)
 			const email = this.signInForm?.value?.email || '';
 			const password = this.signInForm?.value?.password || ''
 			this.doLogin(email, password);
@@ -85,4 +72,23 @@ export class LoginComponent {
 		}
 	}
 
+	googleLogin(){
+		this.supabaseService.signInWithGoogle();
+	}
+
+	twitterLogin(){
+		this.supabaseService.signInWithTwitter();
+	}
+
+	facebookLogin(){
+		this.supabaseService.signInWithFacebook();
+	}
+
+	appleLogin(){
+		this.supabaseService.signInWithApple();
+	}
+
+	githubLogin(){
+		this.supabaseService.signInWithGitHub();
+	}
 }

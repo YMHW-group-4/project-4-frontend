@@ -47,6 +47,48 @@ export class SupabaseService {
 		return this.supabaseClient.auth.signInWithPassword({email, password});
 	}
 
+	//TODO: make one function for all
+	async signInWithGoogle() {
+		const {data, error} = await this.supabaseClient.auth.signInWithOAuth({
+			provider: 'google',
+		}, {
+			redirectTo: 'http://localhost:4200/app'
+		})
+	}
+
+	async signInWithTwitter() {
+		const {data, error} = await this.supabaseClient.auth.signInWithOAuth({
+			provider: 'twitter',
+		}, {
+			redirectTo: 'http://localhost:4200/app'
+		})
+	}
+
+	async signInWithFacebook() {
+		const {data, error} = await this.supabaseClient.auth.signInWithOAuth({
+			provider: 'facebook',
+		}, {
+			redirectTo: 'http://localhost:4200/app'
+		})
+	}
+
+	async signInWithApple() {
+		const {data, error} = await this.supabaseClient.auth.signInWithOAuth({
+			provider: 'apple',
+		}, {
+			redirectTo: 'http://localhost:4200/app'
+		})
+	}
+
+	async signInWithGitHub() {
+		const { data, error } = await this.supabaseClient.auth.signInWithOAuth({
+			provider: 'github',
+		},{
+			redirectTo: 'http://localhost:4200/app'
+		})
+	}
+	//-------------------------------------
+
 	public register(userData: any): Promise<any> {
 		return this.supabaseClient.auth.signUp(
 			{
@@ -62,6 +104,10 @@ export class SupabaseService {
 
 	public signOut(): Promise<any> {
 		return this.supabaseClient.auth.signOut();
+	}
+
+	async signout() {
+		const {error} = await this.supabaseClient.auth.signOut()
 	}
 
 	//TODO: doesn't work yet, whole component
@@ -81,18 +127,18 @@ export class SupabaseService {
 	}
 
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	async getUserID(): Promise<any>{
+	async getUserID(): Promise<any> {
 		return this.getUser().then((user) => {
 			return user?.id
 		});
 	}
 
 	//TODO: make walletservice
-	async addWallet(wallet: Wallet){
-		const { w, error} = await this.supabaseClient
+	async addWallet(wallet: Wallet) {
+		const {w, error} = await this.supabaseClient
 			.from('wallets')
 			.insert(wallet)
-		return { w, error };
+		return {w, error};
 	}
 
 	async getWallets(user: string) {
