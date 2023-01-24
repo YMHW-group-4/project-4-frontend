@@ -28,6 +28,7 @@ export class SendMoneyComponent implements OnInit {
 		this.wallets = await this.supabaseService.getWallets(this.userId);
 
 		this.sendHoinForm = this.fb.group({
+			wwwallet: [''],
 			recipient: ['', Validators.required],
 			amount: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1)]],
 		})
