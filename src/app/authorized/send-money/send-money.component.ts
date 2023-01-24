@@ -9,7 +9,10 @@ import {Wallet} from "../../models/Wallet";
   styleUrls: ['./send-money.component.scss']
 })
 export class SendMoneyComponent implements OnInit {
+	public_self: string;
 	recipient: string
+	amount_to_send: number;
+
 	wallets: any[] = [];
 	userId: string;
 	sendHoinForm!: FormGroup
@@ -31,7 +34,9 @@ export class SendMoneyComponent implements OnInit {
 	}
 
 	sendHoin(){
-		console.log("send")
+		console.log(this.public_self);
+		console.log(this.recipient);
+		console.log(this.amount_to_send);
 	}
 
 }

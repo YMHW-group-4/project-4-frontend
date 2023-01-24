@@ -33,6 +33,13 @@ export class ApiService {
 		});
 	}
 
+	async sendHoin(){
+		const nodeUrl = await this.getNode();
+		return this.axiosGet.get(nodeUrl + '/wallets').then((test) => {
+			return JSON.parse(test.data);
+		});
+	}
+
 
 	async buyHoni(wallet: string, amount: number): Promise<boolean> {
 		const nodeUrl = await this.getNode();
