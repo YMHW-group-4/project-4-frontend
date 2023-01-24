@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SupabaseService} from "../../services/supabase.service";
-import {Wallet} from "../../models/Wallet";
 import {ApiService} from "../../services/api.service";
+import {NotificationService} from "../../services/notification.service";
 
 @Component({
-  selector: 'app-send-money',
-  templateUrl: './send-money.component.html',
-  styleUrls: ['./send-money.component.scss']
+	selector: 'app-send-money',
+	templateUrl: './send-money.component.html',
+	styleUrls: ['./send-money.component.scss']
 })
 export class SendMoneyComponent implements OnInit {
 	public_self: string;
@@ -22,6 +22,7 @@ export class SendMoneyComponent implements OnInit {
 		private fb: FormBuilder,
 		private supabaseService: SupabaseService,
 		private apiService: ApiService,
+		private notifyService: NotificationService,
 	) {
 	}
 
@@ -36,11 +37,13 @@ export class SendMoneyComponent implements OnInit {
 		})
 	}
 
-	sendHoin(){
-		console.log(this.public_self);
-		console.log(this.recipient);
-		console.log(this.amount_to_send);
-		this.apiService.sendHoin(this.public_self, this.recipient, this.amount_to_send)
+	sendHoin() {
+		this.apiService.sendHoin(this.public_self, this.recipient, this.amount_to_send).then((r) => {
+			console.log(r);
+			this.notifyService.showSuccess("", "Transaction successful")
+		}).catch((e) => {
+			this.notifyService.showError("There was a error!", "Transaction not successful")
+			console.warn(e);
+		})
 	}
-
 }
