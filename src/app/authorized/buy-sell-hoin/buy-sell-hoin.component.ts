@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SupabaseService} from "../../services/supabase.service";
+import {ApiService} from "../../services/api.service";
 
 @Component({
 	selector: 'app-buy-sell-hoin',
@@ -17,12 +18,14 @@ export class BuySellHoinComponent {
 	wallets: any[] = [];
 	userId: string;
 	buy_sellHoinForm!: FormGroup
+	user_wallet: any;
 
 	constructor(private route: ActivatedRoute,
 				private toastr: ToastrService,
 				private fb: FormBuilder,
-				private supabaseService: SupabaseService) {
-
+				private supabaseService: SupabaseService,
+				private apiService: ApiService
+	) {
 		this.buyHoin = this.route.snapshot.data['buyHoin']
 		console.log(this.buyHoin);
 	}
@@ -37,11 +40,9 @@ export class BuySellHoinComponent {
 	}
 
 	public transferHoin() {
-		new Promise<void>((resolve, _) => {
-			return resolve()
-		}).then(() =>    {
-			console.log('test');
-			this.toastr.success('Hello world!', 'Toastr fun!');
-		});
+		console.log(this.user_wallet, this.amount);
+		this.apiService.buyHoni(this.user_wallet, this.amount).then((t) => {
+			console.log(t);
+		})
 	}
 }

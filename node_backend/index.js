@@ -8,8 +8,8 @@ const port = 3000;
 const availableNodes = [];
 
 app.get('/register_node', (req, res) => {
-	const port = req.query?.port
-	const host = req.query?.host
+	const port = req.query.port
+	const host = req.query.host
 
 	if (port != null && host != null) {
 		const url = `http://${host}:${port}`;
