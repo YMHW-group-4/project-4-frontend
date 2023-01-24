@@ -50,10 +50,10 @@ export class CreateWalletComponent {
 				this.walletnameAlreadyToken();
 				return;
 			}
-			else{
-				this.canCreate = true;
-			}
 		}
+
+		console.log("1")
+		this.canCreate = true;
 
 		if(this.canCreate){
 			const wallets = await this.apiService.getWallets().catch((e) => {

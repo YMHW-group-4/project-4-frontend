@@ -47,7 +47,6 @@ export class SupabaseService {
 		return this.supabaseClient.auth.signInWithPassword({email, password});
 	}
 
-	//TODO: make one function for all
 	async signInWithGoogle() {
 		const {data, error} = await this.supabaseClient.auth.signInWithOAuth({
 			provider: 'google',
