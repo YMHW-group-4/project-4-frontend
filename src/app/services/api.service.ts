@@ -21,7 +21,6 @@ export class ApiService {
 		}
 		return this.axiosGet.get(this.seedUrl).then((test) => {
 			const data = JSON.parse(test.data);
-			console.log(data)
 			this.nodeUrl = data.url;
 			return data.url;
 		});
@@ -34,19 +33,19 @@ export class ApiService {
 		});
 	}
 
-	async sendHoin(sender: string,receiver: string, amount: number, signature: string = "null") {
+	async sendHoin(sender: string, receiver: string, amount: number, signature: string = "null") {
 		const nodeUrl = await this.getNode();
-		return this.axiosGet.get(nodeUrl + `/transaction?sender=${sender}&receiver=${receiver}&amount=${amount}`).then((response) => JSON.parse(response.data));
+		return this.axiosGet.post(nodeUrl + `/transaction?sender=${sender}&receiver=${receiver}&amount=${amount}`).then((response) => JSON.parse(response.data));
 	}
 
 	async buyHoni(wallet: string, amount: number): Promise<boolean> {
 		const nodeUrl = await this.getNode();
-		return this.axiosGet.get(nodeUrl + `/freemoney?sender=${wallet}&amount=${amount}`).then((response) =>
+		return this.axiosGet.post(nodeUrl + `/freemoney?sender=${wallet}&amount=${amount}`).then((response) =>
 			JSON.parse(response.data)
 		);
 	}
 
-	async getWallet(sender: string) {
+	async getBalance(sender: string) {
 		const nodeUrl = await this.getNode();
 		return this.axiosGet.get(nodeUrl + `/balance?sender=${sender}`).then((response) =>
 			JSON.parse(response.data)

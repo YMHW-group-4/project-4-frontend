@@ -10,11 +10,11 @@ import {ApiService} from "../../services/api.service";
 	styleUrls: ['./view-wallet.component.css']
 })
 export class ViewWalletComponent {
-
 	wallet: Wallet;
 	wallet_name: string;
 	userId: string;
 	private wallet_key: string;
+	balance: number;
 
 	constructor(private supabaseService: SupabaseService,
 				private route: ActivatedRoute,
@@ -29,15 +29,18 @@ export class ViewWalletComponent {
 		this.wallet_key = this.route.snapshot.params['wallet_key'];
 
 		if (this.wallet_name) {
-			this.wallet = await this.supabaseService.getWallet(this.userId, this.wallet_name)
-		} else if(this.wallet_key) {
-			this.wallet = await this.apiService.getWallet(this.wallet_key);
+			this.wallet = await this.supabaseService.getWallet(this.userId, this.wallet_name).catch((e) => console.log(e));
+			this.balance = await this.apiService.getBalance(this.wallet.public_wallet_key).catch((e) => console.log(e));
+		} else if (this.wallet_key) {
+			this.balance = await this.apiService.getBalance(this.wallet_key).catch((e) => console.log(e));
+			this.wallet = new Wallet()
+		} else {
+			this.wallet = new Wallet()
 		}
-
 	}
+
 
 	public navigate() {
-		this.router.navigateByUrl(`/app/view-wallet/search/${this.wallet_name}`).then(_ => this.ngOnInit())
+		this.router.navigateByUrl(`/app/view-wallet/search/${this.wallet_name}`).then(_ => this.ngOnInit());
 	}
-
 }
