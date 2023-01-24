@@ -47,7 +47,7 @@ export class BuySellHoinComponent implements OnInit {
 			this.notification.showSuccess("", "Successful");
 		}).catch((e) => {
 			console.warn(e);
-			this.notification.showError("There was a error", "Not successful")
+			// this.notification.showError("There was a error", "Not successful")
 		})
 	}
 }

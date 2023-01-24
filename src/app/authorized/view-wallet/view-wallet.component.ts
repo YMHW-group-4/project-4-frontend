@@ -14,7 +14,7 @@ export class ViewWalletComponent {
 	wallet_name: string;
 	userId: string;
 	private wallet_key: string;
-	balance: number;
+	balance: number | void = 0;
 
 	constructor(private supabaseService: SupabaseService,
 				private route: ActivatedRoute,

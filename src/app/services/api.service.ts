@@ -40,16 +40,21 @@ export class ApiService {
 
 	async buyHoni(wallet: string, amount: number): Promise<boolean> {
 		const nodeUrl = await this.getNode();
-		return this.axiosGet.post(nodeUrl + `/freemoney?sender=${wallet}&amount=${amount}`).then((response) =>
-			JSON.parse(response.data)
-		);
+		return this.axiosGet.post(nodeUrl + `/freemoney?sender=${wallet}&amount=${amount}`).then((response) => {
+			console.log(response);
+			return response.data;
+		})
 	}
 
-	async getBalance(sender: string) {
+	async getBalance(sender: string): Promise<number> {
 		const nodeUrl = await this.getNode();
-		return this.axiosGet.get(nodeUrl + `/balance?sender=${sender}`).then((response) =>
-			JSON.parse(response.data)
-		);
+		return this.axiosGet.get(nodeUrl + `/balance?sender=${sender}`).then((response) => {
+			console.warn("TODO: api.service.ts: 52")
+			return 0;
+		}).catch((e) => {
+			console.log(e);
+			return 0;
+		})
 	}
 }
 
