@@ -13,6 +13,7 @@
 								<div class="form-group pt-3">
 									<div class="input-field">
 										<select class="form-control">
+											<option default disabled> Select a wallet</option>
 											<option *ngFor="let w of wallets" [ngValue]="w">{{w.wallet_name}}</option>
 										</select>
 									</div>
@@ -22,8 +23,8 @@
 
 									<div class="input-field"
 										 [class.error]="sendHoinForm.controls['recipient'].dirty && sendHoinForm.hasError('required', 'recipient')">
-										<input formControlName="recipient" type="text"
-											   placeholder="Recipient">
+										<input [(ngModel)]="recipient" formControlName="recipient" type="text"
+											   placeholder="Public key recipient">
 									</div>
 								</div>
 								<small
@@ -33,7 +34,7 @@
 								<div class="form-group pt-3">
 									<div class="input-field"
 										 [class.error]="sendHoinForm.controls['amount'].dirty && sendHoinForm.hasError('required', 'amount')">
-										<input formControlName="amount" type="text"
+										<input [(ngModel)]="amount_to_send" formControlName="amount" type="text"
 											   placeholder="Amount">
 									</div>
 								</div>

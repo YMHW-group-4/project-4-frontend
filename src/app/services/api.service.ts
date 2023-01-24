@@ -31,5 +31,12 @@ export class ApiService {
 			return JSON.parse(test.data);
 		});
 	}
+
+	async sendHoin(){
+		const nodeUrl = await this.getNode();
+		return this.axiosGet.get(nodeUrl + '/wallets').then((test) => {
+			return JSON.parse(test.data);
+		});
+	}
 }
 
