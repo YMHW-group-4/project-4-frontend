@@ -19,6 +19,7 @@
 								<div class="form-group pt-3">
 									<div class="input-field">
 										<select class="form-control" [(ngModel)]="user_wallet">
+											<option default> Select a wallet</option>
 											<option *ngFor="let w of wallets" [ngValue]="w">{{w.wallet_name}}</option>
 										</select>
 									</div>

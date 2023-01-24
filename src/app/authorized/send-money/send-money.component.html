@@ -14,7 +14,7 @@
 									<div class="input-field" [class.error]="sendHoinForm.controls['wwwallet']">
 										<select [(ngModel)]="public_self" class="form-control"
 												formControlName="wwwallet">
-											<option default> Select a wallet</option>
+											<option default>Select a wallet</option>
 											<option *ngFor="let w of wallets"
 													[ngValue]="w.public_wallet_key">{{w.wallet_name}}</option>
 										</select>
