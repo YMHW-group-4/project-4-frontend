@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SupabaseService} from "../../services/supabase.service";
 import {Wallet} from "../../models/Wallet";
+import {ApiService} from "../../services/api.service";
 
 @Component({
   selector: 'app-send-money',
@@ -19,7 +20,8 @@ export class SendMoneyComponent implements OnInit {
 
 	constructor(
 		private fb: FormBuilder,
-		private supabaseService: SupabaseService
+		private supabaseService: SupabaseService,
+		private apiService: ApiService,
 	) {
 	}
 
@@ -38,6 +40,7 @@ export class SendMoneyComponent implements OnInit {
 		console.log(this.public_self);
 		console.log(this.recipient);
 		console.log(this.amount_to_send);
+		this.apiService.sendHoin(this.public_self, this.recipient, this.amount_to_send)
 	}
 
 }
