@@ -18,16 +18,30 @@
 
 								<div class="form-group pt-3">
 									<div class="input-field">
+<<<<<<< HEAD
 										<select class="form-control" [(ngModel)]="user_wallet">
 											<option default> Select a wallet</option>
 											<option *ngFor="let w of wallets" [ngValue]="w">{{w.wallet_name}}</option>
+=======
+										<select [(ngModel)]="user_wallet" class="form-control"
+												formControlName="wallet">
+											<option default> Select a wallet</option>
+											<option *ngFor="let w of wallets"
+													[ngValue]="w.public_wallet_key">{{w.wallet_name}}</option>
+>>>>>>> 6dcc2194a8087274c80ab1df77a5a74e3af6de0f
 										</select>
 									</div>
 								</div>
 
 								<div class="form-group pt-3">
-									<div class="input-field"
-										 [class.error]="buy_sellHoinForm.controls['amount'].dirty && buy_sellHoinForm.hasError('required', 'amount')">
+									<div class="input-field">
+										<input [(ngModel)]="user_wallet" formControlName="wallet" type="text"
+											   placeholder="Public key wallet">
+									</div>
+								</div>
+
+								<div class="form-group pt-3">
+									<div class="input-field">
 										<input [(ngModel)]="amount" formControlName="amount" type="text"
 											   placeholder="Amount">
 									</div>

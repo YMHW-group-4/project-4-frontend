@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="offset-md-2 col-lg-5 col-md-7 offset-lg-4 offset-md-3" style="width: 844px; height: 390px;">
-				<div class="panel border bg-white w-100 h-100">
+				<div *ngIf="wallet != null" class="panel border bg-white w-100 h-100">
 					<div class="panel-heading">
 						<h3 class="pt-3 font-weigth-bold">{{wallet.wallet_name}}</h3>
 					</div>
@@ -11,10 +11,10 @@
 						<div class="row justify-content-center mx-3">
 							<input type="search" (keyup.enter)="navigate()" [(ngModel)]="wallet_name" class="w-100">
 							<button (click)="navigate()" class="btn btn-primary btn-block mt-2 w-100">Search</button>
-							<div class="mt-5" *ngIf="wallet != null">
+							<div class="mt-5">
 								<p>Public wallet key: {{wallet.public_wallet_key}}</p>
 								<p>Private wallet key: {{wallet.private_wallet_key}}</p>
-								<!--<p>Balance: {{wallet.balance}}</p>-->
+								<p>Balance: {{balance}}</p>
 							</div>
 						</div>
 
