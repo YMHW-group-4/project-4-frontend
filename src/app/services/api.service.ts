@@ -5,6 +5,7 @@ import {Axios, RawAxiosRequestConfig} from "axios";
 	providedIn: 'root'
 })
 export class ApiService {
+
 	private seedUrl: string = 'http://167.86.93.188:3000/get_node';
 	private nodeUrl: string;
 	private axiosGet: Axios;
@@ -33,18 +34,23 @@ export class ApiService {
 		});
 	}
 
-	async sendHoin(){
+	async sendHoin() {
 		const nodeUrl = await this.getNode();
-		return this.axiosGet.get(nodeUrl + '/wallets').then((test) => {
-			return JSON.parse(test.data);
-		});
+		return this.axiosGet.get(nodeUrl + '/wallets').then((response) => JSON.parse(response.data));
 	}
 
 
 	async buyHoni(wallet: string, amount: number): Promise<boolean> {
 		const nodeUrl = await this.getNode();
-		return this.axiosGet.get(nodeUrl + `/freemoney?sender=${wallet}&amount=${amount}`).then((test) =>
-			JSON.parse(test.data)
+		return this.axiosGet.get(nodeUrl + `/freemoney?sender=${wallet}&amount=${amount}`).then((response) =>
+			JSON.parse(response.data)
+		);
+	}
+
+	async getWallet(sender: string) {
+		const nodeUrl = await this.getNode();
+		return this.axiosGet.get(nodeUrl + `/balance?sender=${sender}`).then((response) =>
+			JSON.parse(response.data)
 		);
 	}
 }

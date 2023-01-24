@@ -38,5 +38,14 @@ app.get('/get_node', (req, res) => {
 	}
 })
 
+app.get('/get_all_nodes', (req, res) => {
+	try {
+		res.send(JSON.stringify(availableNodes));
+	} catch (_) {
+		const error = {error: 'No nodes registered, Register a node using /register_node?host=[HOST]&port=[PORT]'}
+		res.send(JSON.stringify(error));
+	}
+})
+
 app.listen(port);
 console.log(`listening on http://localhost:${port}`);

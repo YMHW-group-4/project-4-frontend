@@ -22,6 +22,8 @@ const routes: Routes = [
 			// {path: 'profile', component: ProfileComponent},
 			{path: 'tikkie', component: CreateTikkieComponent},
 			{path: 'view-wallet/:wallet_name', component: ViewWalletComponent},
+			{path: 'view-wallet/search/:wallet_key', component: ViewWalletComponent},
+			{path: 'view-wallet', component: ViewWalletComponent},
 			{path: 'create-wallet', component: CreateWalletComponent},
 			{path: 'send-money', component: SendMoneyComponent},
 			{path: 'buy-hoin', component: BuySellHoinComponent, data: {buyHoin: true}},
