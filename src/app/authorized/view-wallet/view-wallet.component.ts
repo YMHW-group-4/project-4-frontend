@@ -30,8 +30,10 @@ export class ViewWalletComponent {
 
 		if (this.wallet_name) {
 			this.wallet = await this.supabaseService.getWallet(this.userId, this.wallet_name).catch((e) => console.log(e));
+			// @ts-ignore
 			this.balance = await this.apiService.getBalance(this.wallet.public_wallet_key).catch((e) => console.log(e));
 		} else if (this.wallet_key) {
+			// @ts-ignore
 			this.balance = await this.apiService.getBalance(this.wallet_key).catch((e) => console.log(e));
 			this.wallet = new Wallet()
 		} else {

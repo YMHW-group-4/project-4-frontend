@@ -46,6 +46,7 @@ export class ApiService {
 		})
 	}
 
+	// @ts-ignore
 	async getBalance(sender: string): Promise<AxiosResponse<any> | number> {
 		const nodeUrl = await this.getNode();
 		return this.axiosGet.get(nodeUrl + `/balance?sender=${sender}`).then((response) => {
