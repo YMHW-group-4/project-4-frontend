@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Axios, RawAxiosRequestConfig} from "axios";
+import {Axios, AxiosResponse, RawAxiosRequestConfig} from "axios";
 
 @Injectable({
 	providedIn: 'root'
@@ -46,11 +46,10 @@ export class ApiService {
 		})
 	}
 
-	async getBalance(sender: string): Promise<number> {
+	async getBalance(sender: string): Promise<AxiosResponse<any> | number> {
 		const nodeUrl = await this.getNode();
 		return this.axiosGet.get(nodeUrl + `/balance?sender=${sender}`).then((response) => {
-			console.warn("TODO: api.service.ts: 52")
-			return 0;
+			return response.data;
 		}).catch((e) => {
 			console.log(e);
 			return 0;
