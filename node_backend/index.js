@@ -56,10 +56,13 @@ app.get('/clear', (req, res) => {
 	try {
 		res.send("All nodes are cleared");
 	} catch (_) {
-		const error = {error: 'Something whened wrong'}
+		const error = {error: 'Something went wrong'}
 		res.send(JSON.stringify(error));
 	}
 })
 
 app.listen(port);
-console.log(`listening on http://localhost:${port}`);
+
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+  console.log('listening on ' + add + ':' + port);
+})
