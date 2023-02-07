@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SupabaseService} from "../../services/supabase.service";
 import {ApiService} from "../../services/api.service";
 import {NotificationService} from "../../services/notification.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
 	selector: 'app-send-money',
@@ -16,13 +17,18 @@ export class SendMoneyComponent implements OnInit {
 
 	wallets: any[] = [];
 	userId: string;
-	sendHoinForm!: FormGroup
+	sendHoinForm: FormGroup = this.fb.group({
+		wallet: [''],
+		recipient: ['', Validators.required],
+		amount: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1)]],
+	})
 
 	constructor(
 		private fb: FormBuilder,
 		private supabaseService: SupabaseService,
 		private apiService: ApiService,
 		private notifyService: NotificationService,
+		private route: ActivatedRoute,
 	) {
 	}
 
@@ -30,11 +36,10 @@ export class SendMoneyComponent implements OnInit {
 		this.userId = await this.supabaseService.getUserID();
 		this.wallets = await this.supabaseService.getWallets(this.userId);
 
-		this.sendHoinForm = this.fb.group({
-			wwwallet: [''],
-			recipient: ['', Validators.required],
-			amount: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1)]],
-		})
+		const recipient = this.route.snapshot.queryParams['wallet'] ?? '';
+		const amount = this.route.snapshot.queryParams['amount'] ?? '';
+
+		this.sendHoinForm.patchValue({recipient, amount})
 	}
 
 	sendHoin() {

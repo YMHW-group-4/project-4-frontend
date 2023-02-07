@@ -1,10 +1,12 @@
 <p>create-tikkie works!</p>
-<input type="number" [(ngModel)]="amount">
-<p>
-	{{tikkieBaseUrl}} ?wallet={{wallet}}&amount={{amount}}
-</p>
+<select [(ngModel)]="wallet" (ngModelChange)="update()" class="form-control">
+	<option selected>Select a wallet</option>
+	<option *ngFor="let wallet of wallets" [ngValue]="wallet.public_wallet_key">{{wallet.wallet_name}}</option>
+</select>
+<input type="number" [(ngModel)]="amount" (ngModelChange)="update()">
+<button (click)="copyUrl()">Copy url</button>
 <qrcode
-	qrdata="{{tikkieBaseUrl}} ?wallet={{wallet}}&amount={{amount}}"
+	[qrdata]="url"
 	[width]="256"
 	[errorCorrectionLevel]="'high'"
 ></qrcode>
