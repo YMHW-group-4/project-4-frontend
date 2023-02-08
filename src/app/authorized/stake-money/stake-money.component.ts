@@ -21,7 +21,6 @@ export class StakeMoneyComponent implements OnInit {
 	userId: string;
 	sendHoinForm: FormGroup = this.fb.group({
 		wallet: [''],
-		recipient: ['', Validators.required],
 		amount: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.min(1)]],
 	})
 
