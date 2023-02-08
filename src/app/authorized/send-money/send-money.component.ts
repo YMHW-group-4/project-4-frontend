@@ -4,6 +4,7 @@ import {SupabaseService} from "../../services/supabase.service";
 import {ApiService} from "../../services/api.service";
 import {NotificationService} from "../../services/notification.service";
 import {ActivatedRoute} from "@angular/router";
+import {Wallets} from "../../models/Wallet";
 
 @Component({
 	selector: 'app-send-money',
@@ -16,7 +17,7 @@ export class SendMoneyComponent implements OnInit {
 	recipient: string
 	amount_to_send: number;
 
-	wallets: any[] = [];
+	wallets: Wallets = [];
 	userId: string;
 	sendHoinForm: FormGroup = this.fb.group({
 		wallet: [''],
@@ -44,8 +45,12 @@ export class SendMoneyComponent implements OnInit {
 		this.sendHoinForm.patchValue({recipient, amount})
 	}
 
+	getPrivateKey(pubKey: string): string {
+		return this.wallets.find((w) => w.public_wallet_key === pubKey)?.private_wallet_key ?? 'null'
+	}
+
 	sendHoin() {
-		this.apiService.sendHoin(this.public_self, this.recipient, this.amount_to_send, this.private_key).then((r) => {
+		this.apiService.sendHoin(this.public_self, this.recipient, this.amount_to_send, this.getPrivateKey(this.public_self)).then((r) => {
 			console.log(r);
 			this.notifyService.showSuccess("", "Transaction successful")
 		}).catch((e) => {
