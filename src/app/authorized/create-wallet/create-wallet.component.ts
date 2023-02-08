@@ -25,8 +25,7 @@ export class CreateWalletComponent {
 		private supabaseService: SupabaseService,
 		private notifyService: NotificationService,
 		private apiService: ApiService,
-	) {
-	}
+	) {}
 
 	ngOnInit(): void {
 		this.wallet = new Wallet;
@@ -39,6 +38,7 @@ export class CreateWalletComponent {
 	}
 
 	async addWallet() {
+		console.log('Begin showWalletResults', this.showWalletResults)
 		if (this.wallet.id) {
 			return;
 		}
@@ -61,10 +61,14 @@ export class CreateWalletComponent {
 				return {'Pub': 'null', 'Priv': 'null', 'Mnemonic': 'null'};
 			})
 
+			console.log('CanCreate showWalletResults', this.showWalletResults)
+			console.log('CanCreate wallets', wallets)
+
 			this.wallet.public_wallet_key = wallets.Pub;
 			this.wallet.private_wallet_key = wallets.Priv;
 			this.wallet.mnemonic = wallets.Mnemonic;
 			this.wallet.user = this.user_id;
+
 			this.showWalletResults = true;
 
 
