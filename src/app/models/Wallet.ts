@@ -9,6 +9,7 @@ export class Wallet{
 	wallet_name: string;
 	public_wallet_key: string;
 	private_wallet_key: string;
+	mnemonic: string;
 	balance: number;
 }
 

@@ -12,6 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SendMoneyComponent implements OnInit {
 	public_self: string;
+	private_key: string;
 	recipient: string
 	amount_to_send: number;
 
@@ -35,6 +36,7 @@ export class SendMoneyComponent implements OnInit {
 	async ngOnInit() {
 		this.userId = await this.supabaseService.getUserID();
 		this.wallets = await this.supabaseService.getWallets(this.userId);
+		console.log(this.wallets);
 
 		const recipient = this.route.snapshot.queryParams['wallet'] ?? '';
 		const amount = this.route.snapshot.queryParams['amount'] ?? '';
@@ -43,7 +45,7 @@ export class SendMoneyComponent implements OnInit {
 	}
 
 	sendHoin() {
-		this.apiService.sendHoin(this.public_self, this.recipient, this.amount_to_send).then((r) => {
+		this.apiService.sendHoin(this.public_self, this.recipient, this.amount_to_send, this.private_key).then((r) => {
 			console.log(r);
 			this.notifyService.showSuccess("", "Transaction successful")
 		}).catch((e) => {

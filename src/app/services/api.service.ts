@@ -26,16 +26,16 @@ export class ApiService {
 		});
 	}
 
-	async getWallets(): Promise<{ 'private': string, 'public': string }> {
+	async getWallets(): Promise<{ 'Priv': string, 'Pub': string, 'Mnemonic': string }> {
 		const nodeUrl = await this.getNode();
 		return this.axiosGet.get(nodeUrl + '/wallets').then((test) => {
 			return JSON.parse(test.data);
 		});
 	}
 
-	async sendHoin(sender: string, receiver: string, amount: number, signature: string = "null") {
+	async sendHoin(sender: string, receiver: string, amount: number, privateKey: string, signature: string = "null") {
 		const nodeUrl = await this.getNode();
-		return this.axiosGet.post(nodeUrl + `/transaction?sender=${sender}&receiver=${receiver}&amount=${amount}`).then((response) => JSON.parse(response.data));
+		return this.axiosGet.post(nodeUrl + `/transaction?sender=${sender}&receiver=${receiver}&amount=${amount}&key=${privateKey}`).then((response) => JSON.parse(response.data));
 	}
 
 	async buyHoni(wallet: string, amount: number): Promise<boolean> {

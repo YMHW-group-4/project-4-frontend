@@ -58,11 +58,12 @@ export class CreateWalletComponent {
 		if(this.canCreate){
 			const wallets = await this.apiService.getWallets().catch((e) => {
 				this.notifyService.showError("Could not create wallet from the blockchain", "Couldn't get keypair")
-				return {'private': 'null', 'public': 'null'};
+				return {'Pub': 'null', 'Priv': 'null', 'Mnemonic': 'null'};
 			})
 
-			this.wallet.public_wallet_key = wallets.public;
-			this.wallet.private_wallet_key = wallets.private;
+			this.wallet.public_wallet_key = wallets.Pub;
+			this.wallet.private_wallet_key = wallets.Priv;
+			this.wallet.mnemonic = wallets.Mnemonic;
 			this.wallet.user = this.user_id;
 
 			this.supabaseService.addWallet(this.wallet).then((data: { w: any, error: any }) => {
