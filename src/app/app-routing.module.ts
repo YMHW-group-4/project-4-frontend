@@ -14,6 +14,7 @@ import {ProfileComponent} from "./authorized/profile/profile.component";
 import {ResetPasswordComponent} from "./unauthorized/reset-password/reset-password.component";
 import {NewPasswordComponent} from "./unauthorized/new-password/new-password.component";
 import {SendMoneyComponent} from "./authorized/send-money/send-money.component";
+import {StakeMoneyComponent} from "./authorized/stake-money/stake-money.component";
 
 const routes: Routes = [
 	{
@@ -26,6 +27,7 @@ const routes: Routes = [
 			{path: 'view-wallet', component: ViewWalletComponent},
 			{path: 'create-wallet', component: CreateWalletComponent},
 			{path: 'send-money', component: SendMoneyComponent},
+			{path: 'stake-money', component: StakeMoneyComponent},
 			{path: 'buy-hoin', component: BuySellHoinComponent, data: {buyHoin: true}},
 			{path: 'sell-hoin', component: BuySellHoinComponent, data: {buyHoin: false}},
 		]

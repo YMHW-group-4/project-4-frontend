@@ -23,6 +23,7 @@ import {ResetPasswordComponent} from './unauthorized/reset-password/reset-passwo
 import {NewPasswordComponent} from './unauthorized/new-password/new-password.component';
 import {SendMoneyComponent} from './authorized/send-money/send-money.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {StakeMoneyComponent} from "./authorized/stake-money/stake-money.component";
 
 
 
@@ -43,6 +44,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 		ResetPasswordComponent,
 		NewPasswordComponent,
 		SendMoneyComponent,
+		StakeMoneyComponent,
 	],
 	imports: [
 		BrowserModule,

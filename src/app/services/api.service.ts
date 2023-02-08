@@ -38,6 +38,11 @@ export class ApiService {
 		return this.axiosGet.post(nodeUrl + `/transaction?sender=${sender}&receiver=${receiver}&amount=${amount}&key=${privateKey}`).then((response) => JSON.parse(response.data));
 	}
 
+	async stakeHoin(sender: string, amount: number, privateKey: string, signature: string = "null") {
+		const nodeUrl = await this.getNode();
+		return this.axiosGet.post(nodeUrl + `/stake?sender=${sender}&amount=${amount}&key=${privateKey}`).then((response) => JSON.parse(response.data));
+	}
+
 	async buyHoni(wallet: string, amount: number): Promise<boolean> {
 		const nodeUrl = await this.getNode();
 		return this.axiosGet.post(nodeUrl + `/freemoney?sender=${wallet}&amount=${amount}`).then((response) => {
