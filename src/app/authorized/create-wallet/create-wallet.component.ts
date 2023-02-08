@@ -18,6 +18,7 @@ export class CreateWalletComponent {
 	createWalletForm!: FormGroup;
 	wo_wallets: any[] = [];
 	canCreate: boolean;
+	showWalletResults: boolean = false;
 
 	constructor(
 		private fb: FormBuilder,
@@ -52,12 +53,11 @@ export class CreateWalletComponent {
 			}
 		}
 
-		console.log("1")
 		this.canCreate = true;
 
 		if(this.canCreate){
 			const wallets = await this.apiService.getWallets().catch((e) => {
-				this.notifyService.showError("Could not create wallet from the blockchain", "Couldn't get keypair")
+				this.notifyService.showError("Could not create wallet", "Couldn't get keypair")
 				return {'Pub': 'null', 'Priv': 'null', 'Mnemonic': 'null'};
 			})
 
@@ -65,6 +65,8 @@ export class CreateWalletComponent {
 			this.wallet.private_wallet_key = wallets.Priv;
 			this.wallet.mnemonic = wallets.Mnemonic;
 			this.wallet.user = this.user_id;
+			this.showWalletResults = true;
+
 
 			this.supabaseService.addWallet(this.wallet).then((data: { w: any, error: any }) => {
 				if (data.error == null) {
@@ -72,7 +74,7 @@ export class CreateWalletComponent {
 					this.createWalletForm.reset();
 					this.added = true;
 				} else {
-					this.walletNotAddedNotification();
+					// this.walletNotAddedNotification();
 				}
 			})
 		}

@@ -13,7 +13,8 @@
 
 									<div class="input-field"
 										 [class.error]="createWalletForm.controls['name'].dirty && createWalletForm.hasError('required', 'name')">
-										<input [(ngModel)]="wallet.wallet_name" (input)="setAddedFalse()" formControlName="name" type="text"
+										<input [(ngModel)]="wallet.wallet_name" (input)="setAddedFalse()"
+											   formControlName="name" type="text"
 											   placeholder="Wallet Name">
 									</div>
 								</div>
@@ -25,9 +26,21 @@
 								<button (click)="addWallet()" [disabled]="createWalletForm.invalid" value="Submit"
 										class="btn btn-primary btn-block mt-5 w-100">Create
 								</button>
+
+								<div *ngIf="showWalletResults">
+									<div class="input-field">
+										<input [(ngModel)]="wallet.private_wallet_key">
+									</div>
+									<div class="input-field">
+										<input [(ngModel)]="wallet.public_wallet_key">
+									</div>
+									<div class="input-field">
+										<input [(ngModel)]="wallet.mnemonic">
+									</div>
+								</div>
+
 							</div>
 						</form>
-
 					</div>
 				</div>
 			</div>
