@@ -26,21 +26,20 @@
 								<button (click)="addWallet()" [disabled]="createWalletForm.invalid" value="Submit"
 										class="btn btn-primary btn-block mt-5 w-100">Create
 								</button>
-
-								<div *ngIf="showWalletResults">
-									<div class="input-field">
-										<input [(ngModel)]="wallet.private_wallet_key">
-									</div>
-									<div class="input-field">
-										<input [(ngModel)]="wallet.public_wallet_key">
-									</div>
-									<div class="input-field">
-										<input [(ngModel)]="wallet.mnemonic">
-									</div>
-								</div>
-
 							</div>
 						</form>
+						
+						<div *ngIf="showWalletResults">
+							<div class="input-field">
+								<input [(ngModel)]="wallet.private_wallet_key">
+							</div>
+							<div class="input-field">
+								<input [(ngModel)]="wallet.public_wallet_key">
+							</div>
+							<div class="input-field">
+								<input [(ngModel)]="wallet.mnemonic">
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
